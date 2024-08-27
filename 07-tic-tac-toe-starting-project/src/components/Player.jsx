@@ -5,6 +5,16 @@ export default function Player({ name = "Player", symbol, onSave }) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState("");
 
+  let playerNameEl = <span className="player-name">{name}</span>;
+
+  if (isEditing) {
+    <input
+      type="text"
+      value={playerName}
+      onChange={(e) => setPlayerName(e.target.value)}
+    />;
+  }
+
   function handleEdit() {
     setIsEditing(true);
   }
@@ -17,15 +27,7 @@ export default function Player({ name = "Player", symbol, onSave }) {
   return (
     <li>
       <span className="player">
-        {isEditing ? (
-          <input
-            type="text"
-            value={playerName}
-            onChange={(e) => setPlayerName(e.target.value)}
-          />
-        ) : (
-          <span className="player-name">{name}</span>
-        )}
+        {playerNameEl}
         <span className="player-symbol">{symbol}</span>
       </span>
       <button onClick={isEditing ? handleSave : handleEdit}>

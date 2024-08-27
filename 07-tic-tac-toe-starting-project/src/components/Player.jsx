@@ -6,13 +6,21 @@ export default function Player({ name = "Player", symbol, onSave }) {
   const [playerName, setPlayerName] = useState("");
 
   let playerNameEl = <span className="player-name">{name}</span>;
+  let buttonCaption = "Edit";
+  let buttonClickHandler = handleEdit;
 
   if (isEditing) {
-    <input
-      type="text"
-      value={playerName}
-      onChange={(e) => setPlayerName(e.target.value)}
-    />;
+    playerNameEl = (
+      <input
+        type="text"
+        value={playerName}
+        onChange={(e) => setPlayerName(e.target.value)}
+        required
+      />
+    );
+
+    buttonCaption = "Save";
+    buttonClickHandler = handleSave;
   }
 
   function handleEdit() {
@@ -30,9 +38,7 @@ export default function Player({ name = "Player", symbol, onSave }) {
         {playerNameEl}
         <span className="player-symbol">{symbol}</span>
       </span>
-      <button onClick={isEditing ? handleSave : handleEdit}>
-        {isEditing ? "Save" : "Edit"}
-      </button>
+      <button onClick={buttonClickHandler}>{buttonCaption}</button>
     </li>
   );
 }

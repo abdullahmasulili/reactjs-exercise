@@ -2,23 +2,12 @@ import { useState } from "react";
 import Player from "./components/Player";
 
 function App() {
-  const [playerOneName, setPlayerOneName] = useState("Player 1");
-  const [playerTwoName, setPlayerTwoName] = useState("Player 2");
-
   return (
     <main>
       <div id="game-container">
         <ol id="players">
-          <Player
-            name={playerOneName}
-            symbol="X"
-            onSave={(name) => setPlayerOneName(name)}
-          />
-          <Player
-            name={playerTwoName}
-            symbol="O"
-            onSave={(name) => setPlayerTwoName(name)}
-          />
+          <Player initialName="Player 1" symbol="X" />
+          <Player initialName="Player 2" symbol="O" />
         </ol>
       </div>
     </main>

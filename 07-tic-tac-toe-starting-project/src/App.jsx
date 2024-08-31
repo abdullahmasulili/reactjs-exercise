@@ -34,6 +34,8 @@ function App() {
     gameBoard[row][col] = player;
   }
 
+  let winner;
+
   WINNING_COMBINATIONS.forEach((combinations) => {
     const firstSymbol = gameBoard[combinations[0].row][combinations[0].column];
     const secondSymbol = gameBoard[combinations[1].row][combinations[1].column];
@@ -44,6 +46,7 @@ function App() {
       firstSymbol === secondSymbol &&
       firstSymbol === thirdSymbol
     ) {
+      winner = firstSymbol;
     }
   });
 

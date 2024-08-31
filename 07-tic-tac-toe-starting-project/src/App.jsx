@@ -3,20 +3,23 @@ import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import GameplayLog from "./components/GameplayLog";
 
+function derivedActivePlayer(playerMoves) {
+  let currentPlayer = "X";
+
+  if (playerMoves.length > 0 && playerMoves[0].player === "X") {
+    currentPlayer = "O";
+  }
+
+  return currentPlayer;
+}
+
 function App() {
-  const [activePlayer, setActivePlayer] = useState("X");
   const [playerMoves, setPlayerMoves] = useState([]);
+  const activePlayer = derivedActivePlayer(playerMoves);
 
   function handleSwitchPlayer(xPosition, yPosition) {
-    setActivePlayer((currActivePlayer) =>
-      currActivePlayer === "X" ? "O" : "X"
-    );
     setPlayerMoves((currentMoves) => {
-      let currentPlayer = "X";
-
-      if (currentMoves.length > 0 && currentMoves[0].player === "X") {
-        currentPlayer = "O";
-      }
+      const currentPlayer = derivedActivePlayer(currentMoves);
 
       const updatedPlayerMoves = [
         {
@@ -49,8 +52,8 @@ function App() {
           />
         </ol>
         <GameBoard onSquareSelected={handleSwitchPlayer} moves={playerMoves} />
-        <GameplayLog />
       </div>
+      <GameplayLog histories={playerMoves} />
     </main>
   );
 }

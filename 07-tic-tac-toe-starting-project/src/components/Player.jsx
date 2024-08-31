@@ -28,15 +28,14 @@ export default function Player({
 
   function handleEdit() {
     setIsEditing((oldValue) => !oldValue);
+
+    if (isEditing) {
+      onSave(playerName, symbol);
+    }
   }
 
   function handleInputChange({ target }) {
     setPlayerName(target.value);
-  }
-
-  function handleSave() {
-    onSave(playerName, symbol);
-    setIsEditing(false);
   }
 
   return (
@@ -45,9 +44,7 @@ export default function Player({
         {playerNameEl}
         <span className="player-symbol">{symbol}</span>
       </span>
-      <button onClick={buttonCaption === "Save" ? handleSave : handleEdit}>
-        {buttonCaption}
-      </button>
+      <button onClick={handleEdit}>{buttonCaption}</button>
     </li>
   );
 }

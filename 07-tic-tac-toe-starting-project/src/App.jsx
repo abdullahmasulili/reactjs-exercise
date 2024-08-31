@@ -24,6 +24,10 @@ function derivedActivePlayer(playerMoves) {
 
 function App() {
   const [playerMoves, setPlayerMoves] = useState([]);
+  const [players, setPlayers] = useState({
+    X: "Player 1",
+    O: "Player 2",
+  });
   const activePlayer = derivedActivePlayer(playerMoves);
 
   let gameBoard = [...initialGameBoard.map((innerArray) => [...innerArray])];
@@ -47,7 +51,7 @@ function App() {
       firstSymbol === secondSymbol &&
       firstSymbol === thirdSymbol
     ) {
-      winner = firstSymbol;
+      winner = players[firstSymbol];
     }
   });
 
@@ -76,6 +80,15 @@ function App() {
     setPlayerMoves([]);
   }
 
+  function handleSavePlayerName(name, symbol) {
+    setPlayers((playerData) => {
+      const updatedPlayerData = { ...playerData };
+      updatedPlayerData[symbol] = name.toUpperCase();
+
+      return updatedPlayerData;
+    });
+  }
+
   return (
     <main>
       <div id="game-container">
@@ -84,11 +97,13 @@ function App() {
             initialName="Player 1"
             symbol="X"
             isActive={activePlayer === "X"}
+            onSave={handleSavePlayerName}
           />
           <Player
             initialName="Player 2"
             symbol="O"
             isActive={activePlayer === "O"}
+            onSave={handleSavePlayerName}
           />
         </ol>
         {(winner || isDraw) && (
@@ -96,7 +111,7 @@ function App() {
         )}
         <GameBoard onSquareSelected={handleSwitchPlayer} board={gameBoard} />
       </div>
-      <GameplayLog histories={playerMoves} />
+      <GameplayLog histories={playerMoves} players={players} />
     </main>
   );
 }

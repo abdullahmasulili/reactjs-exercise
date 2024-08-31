@@ -5,6 +5,7 @@ export default function Player({
   initialName = "Player",
   symbol,
   isActive = false,
+  onSave,
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
@@ -33,13 +34,20 @@ export default function Player({
     setPlayerName(target.value);
   }
 
+  function handleSave() {
+    onSave(playerName, symbol);
+    setIsEditing(false);
+  }
+
   return (
     <li className={isActive ? "active" : undefined}>
       <span className="player">
         {playerNameEl}
         <span className="player-symbol">{symbol}</span>
       </span>
-      <button onClick={handleEdit}>{buttonCaption}</button>
+      <button onClick={buttonCaption === "Save" ? handleSave : handleEdit}>
+        {buttonCaption}
+      </button>
     </li>
   );
 }

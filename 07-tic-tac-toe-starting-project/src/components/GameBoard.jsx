@@ -25,6 +25,7 @@ export default function GameBoard({ onSquareSelected, moves }) {
                   <li key={colIndex}>
                     <button
                       onClick={() => onSquareSelected(rowIndex, colIndex)}
+                      disabled={symbol}
                     >
                       {symbol}
                     </button>

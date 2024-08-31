@@ -1,23 +1,17 @@
-import React, { useState } from "react";
-
 const initialGameBoard = [
   [null, null, null],
   [null, null, null],
   [null, null, null],
 ];
 
-export default function GameBoard({ onSquareSelected, activePlayerSymbol }) {
-  const [gameBoard, setGameBoard] = useState(initialGameBoard);
+export default function GameBoard({ onSquareSelected, moves }) {
+  let gameBoard = initialGameBoard;
 
-  function handleBoardClick(rowIndex, colIndex) {
-    setGameBoard((prevGameBoard) => {
-      const updatedBoard = [...prevGameBoard.map((values) => [...values])];
-      updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
+  for (let move of moves) {
+    const { squarePosition, player } = move;
+    const { row, col } = squarePosition;
 
-      return updatedBoard;
-    });
-
-    onSquareSelected();
+    gameBoard[row][col] = player;
   }
 
   return (
@@ -30,7 +24,7 @@ export default function GameBoard({ onSquareSelected, activePlayerSymbol }) {
                 return (
                   <li key={colIndex}>
                     <button
-                      onClick={() => handleBoardClick(rowIndex, colIndex)}
+                      onClick={() => onSquareSelected(rowIndex, colIndex)}
                     >
                       {symbol}
                     </button>

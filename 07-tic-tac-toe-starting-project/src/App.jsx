@@ -1,14 +1,36 @@
 import { useState } from "react";
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
+import GameplayLog from "./components/GameplayLog";
 
 function App() {
   const [activePlayer, setActivePlayer] = useState("X");
+  const [playerMoves, setPlayerMoves] = useState([]);
 
-  function handleSwitchPlayer() {
+  function handleSwitchPlayer(xPosition, yPosition) {
     setActivePlayer((currActivePlayer) =>
       currActivePlayer === "X" ? "O" : "X"
     );
+    setPlayerMoves((currentMoves) => {
+      let currentPlayer = "X";
+
+      if (currentMoves.length > 0 && currentMoves[0].player === "X") {
+        currentPlayer = "O";
+      }
+
+      const updatedPlayerMoves = [
+        {
+          player: currentPlayer,
+          squarePosition: {
+            row: xPosition,
+            col: yPosition,
+          },
+        },
+        ...currentMoves,
+      ];
+
+      return updatedPlayerMoves;
+    });
   }
 
   return (
@@ -26,10 +48,8 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
-        <GameBoard
-          onSquareSelected={handleSwitchPlayer}
-          activePlayerSymbol={activePlayer}
-        />
+        <GameBoard onSquareSelected={handleSwitchPlayer} moves={playerMoves} />
+        <GameplayLog />
       </div>
     </main>
   );

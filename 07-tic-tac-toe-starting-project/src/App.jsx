@@ -3,6 +3,14 @@ import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import GameplayLog from "./components/GameplayLog";
 
+import { WINNING_COMBINATIONS } from "./utilities/winning-combinations";
+
+const initialGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
+
 function derivedActivePlayer(playerMoves) {
   let currentPlayer = "X";
 
@@ -16,6 +24,28 @@ function derivedActivePlayer(playerMoves) {
 function App() {
   const [playerMoves, setPlayerMoves] = useState([]);
   const activePlayer = derivedActivePlayer(playerMoves);
+
+  let gameBoard = initialGameBoard;
+
+  for (let move of playerMoves) {
+    const { squarePosition, player } = move;
+    const { row, col } = squarePosition;
+
+    gameBoard[row][col] = player;
+  }
+
+  WINNING_COMBINATIONS.forEach((combinations) => {
+    const firstSymbol = gameBoard[combinations[0].row][combinations[0].column];
+    const secondSymbol = gameBoard[combinations[1].row][combinations[1].column];
+    const thirdSymbol = gameBoard[combinations[2].row][combinations[2].column];
+
+    if (
+      firstSymbol &&
+      firstSymbol === secondSymbol &&
+      firstSymbol === thirdSymbol
+    ) {
+    }
+  });
 
   function handleSwitchPlayer(xPosition, yPosition) {
     setPlayerMoves((currentMoves) => {
@@ -51,7 +81,7 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
-        <GameBoard onSquareSelected={handleSwitchPlayer} moves={playerMoves} />
+        <GameBoard onSquareSelected={handleSwitchPlayer} board={gameBoard} />
       </div>
       <GameplayLog histories={playerMoves} />
     </main>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import GameplayLog from "./components/GameplayLog";
+import GameOver from "./components/GameOver";
 
 import { WINNING_COMBINATIONS } from "./utilities/winning-combinations";
 
@@ -50,6 +51,8 @@ function App() {
     }
   });
 
+  const isDraw = playerMoves.length === 9 && !winner;
+
   function handleSwitchPlayer(xPosition, yPosition) {
     setPlayerMoves((currentMoves) => {
       const currentPlayer = derivedActivePlayer(currentMoves);
@@ -84,6 +87,7 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
+        {(winner || isDraw) && <GameOver winner={winner} />}
         <GameBoard onSquareSelected={handleSwitchPlayer} board={gameBoard} />
       </div>
       <GameplayLog histories={playerMoves} />

@@ -26,7 +26,7 @@ function App() {
   const [playerMoves, setPlayerMoves] = useState([]);
   const activePlayer = derivedActivePlayer(playerMoves);
 
-  let gameBoard = initialGameBoard;
+  let gameBoard = [...initialGameBoard.map((innerArray) => [...innerArray])];
 
   for (let move of playerMoves) {
     const { squarePosition, player } = move;
@@ -72,6 +72,10 @@ function App() {
     });
   }
 
+  function handleResetBoard() {
+    setPlayerMoves([]);
+  }
+
   return (
     <main>
       <div id="game-container">
@@ -87,7 +91,9 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
-        {(winner || isDraw) && <GameOver winner={winner} />}
+        {(winner || isDraw) && (
+          <GameOver winner={winner} onRematchClick={handleResetBoard} />
+        )}
         <GameBoard onSquareSelected={handleSwitchPlayer} board={gameBoard} />
       </div>
       <GameplayLog histories={playerMoves} />

@@ -7,26 +7,22 @@ import UserInput from "./components/UserInput";
 import { calculateInvestmentResults, formatter } from "./util/investment";
 
 function App() {
-  const initialUserInput = {
+  const [userInput, setUserInput] = useState({
     initialInvestment: 10000,
     annualInvestment: 1400,
     expectedReturn: 9,
     duration: 10,
-  };
+  });
 
-  const [userInput, setUserInput] = useState({ ...initialUserInput });
+  const isUserInputValid = userInput.duration >= 1;
 
   function handleUserInput(inputId, newValue) {
-    let value = newValue ? newValue : 0;
-
     setUserInput((oldValues) => {
       const updatedUserInput = { ...oldValues };
-      updatedUserInput[inputId] = value;
+      updatedUserInput[inputId] = newValue;
 
       return updatedUserInput;
     });
-
-    // results = calculateInvestmentResults(userInput);
   }
 
   const results = calculateInvestmentResults(userInput);
@@ -36,11 +32,16 @@ function App() {
       <Header />
       <main>
         <UserInput input={userInput} onInputChange={handleUserInput} />
-        <Result
-          input={userInput}
-          results={results}
-          formatter={(value) => formatter.format(value)}
-        />
+        {!isUserInputValid && (
+          <p className="center">Duration must be greater than 1 or equal.</p>
+        )}
+        {isUserInputValid && (
+          <Result
+            input={userInput}
+            results={results}
+            formatter={(value) => formatter.format(value)}
+          />
+        )}
       </main>
     </>
   );

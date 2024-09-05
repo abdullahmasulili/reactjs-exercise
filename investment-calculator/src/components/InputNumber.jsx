@@ -1,12 +1,15 @@
 import React from "react";
 
-export default function Input({ id, label }) {
+export default function Input({ id, label, onChange, value }) {
   return (
-    <div>
-      <label htmlFor={id}>
-        <span>{label}</span>
-      </label>
-      <input type="number" id={id} />
-    </div>
+    <p>
+      <label htmlFor={id}>{label}</label>
+      <input
+        type="number"
+        id={id}
+        onChange={(e) => onChange(Number(e.target.value))}
+        value={value}
+      />
+    </p>
   );
 }

@@ -9,13 +9,13 @@ export default function UserInput({ input, onInputChange }) {
           id="initial-investment"
           label="Initial Investment"
           value={input.initialInvestment}
-          onChange={(newVal) => onInputChange("initial_investment", newVal)}
+          onChange={(newVal) => onInputChange("initialInvestment", newVal)}
         />
         <InputNumber
           id="annual-investment"
           label="Annual Investment"
           value={input.annualInvestment}
-          onChange={(newVal) => onInputChange("annual_investment", newVal)}
+          onChange={(newVal) => onInputChange("annualInvestment", newVal)}
         />
       </div>
       <div className="input-group">
@@ -23,7 +23,7 @@ export default function UserInput({ input, onInputChange }) {
           id="expected-return"
           label="Expected Return"
           value={input.expectedReturn}
-          onChange={(newVal) => onInputChange("expected_return", newVal)}
+          onChange={(newVal) => onInputChange("expectedReturn", newVal)}
         />
         <InputNumber
           id="duration"

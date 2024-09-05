@@ -14,8 +14,6 @@ function App() {
     duration: 10,
   };
 
-  let result;
-
   const [userInput, setUserInput] = useState({ ...initialUserInput });
 
   function handleUserInput(inputId, newValue) {
@@ -28,14 +26,21 @@ function App() {
       return updatedUserInput;
     });
 
-    result = calculateInvestmentResults(userInput);
+    // results = calculateInvestmentResults(userInput);
   }
+
+  const results = calculateInvestmentResults(userInput);
+
   return (
     <>
       <Header />
       <main>
         <UserInput input={userInput} onInputChange={handleUserInput} />
-        <Result />
+        <Result
+          input={userInput}
+          results={results}
+          formatter={(value) => formatter.format(value)}
+        />
       </main>
     </>
   );

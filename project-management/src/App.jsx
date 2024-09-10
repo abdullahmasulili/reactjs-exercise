@@ -1,9 +1,12 @@
 import { useState } from "react";
 import CreateProject from "./components/CreateProject";
 import Sidebar from "./components/Sidebar";
+import EmptyProject from "./components/NoProject";
 
 function App() {
   const [projects, setProjects] = useState([]);
+  const [isCreateProject, setIsCreateProject] = useState(false);
+  const [currentProject, setCurrentProject] = useState(null);
 
   function handleCreateProject(data) {
     setProjects((prevProjects) => {
@@ -16,9 +19,15 @@ function App() {
 
   return (
     <>
-      <Sidebar projects={projects} />
-      <main className="w-full ml-8">
-        <CreateProject onSave={handleCreateProject} />
+      <Sidebar
+        projects={projects}
+        onAddProject={() => setIsCreateProject(true)}
+      />
+      <main className="w-full h-full ml-8">
+        {!currentProject && (
+          <EmptyProject onCreateProject={() => setIsCreateProject(true)} />
+        )}
+        {isCreateProject && <CreateProject onSave={handleCreateProject} />}
       </main>
     </>
   );

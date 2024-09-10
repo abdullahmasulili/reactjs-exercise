@@ -1,7 +1,7 @@
 import ProjectImage from "../assets/no-projects.png";
 import Button from "./Button";
 
-export default function EmptyProject() {
+export default function EmptyProject({ onCreateProject }) {
   return (
     <section
       id="no-project"
@@ -18,7 +18,10 @@ export default function EmptyProject() {
       <p className="font-medium">
         Select a project or get started with a new one
       </p>
-      <Button className="transition px-4 py-2 rounded-lg bg-stone-700 text-stone-200 hover:text-stone-50">
+      <Button
+        onClick={onCreateProject}
+        className="transition px-4 py-2 rounded-lg bg-stone-700 text-stone-200 hover:text-stone-50"
+      >
         Create new project
       </Button>
     </section>

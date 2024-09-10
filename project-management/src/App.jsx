@@ -15,6 +15,8 @@ function App() {
 
       return updatedProjects;
     });
+
+    setIsCreateProject(false);
   }
 
   return (
@@ -24,7 +26,7 @@ function App() {
         onAddProject={() => setIsCreateProject(true)}
       />
       <main className="w-full h-full ml-8">
-        {!currentProject && (
+        {!currentProject && !isCreateProject && (
           <EmptyProject onCreateProject={() => setIsCreateProject(true)} />
         )}
         {isCreateProject && <CreateProject onSave={handleCreateProject} />}

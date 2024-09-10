@@ -5,7 +5,7 @@ import EmptyProject from "./components/NoProject";
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [isCreateProject, setIsCreateProject] = useState(false);
+  const [isCreatingProject, setIsCreatingProject] = useState(false);
   const [currentProject, setCurrentProject] = useState(null);
 
   function handleCreateProject(data) {
@@ -16,20 +16,20 @@ function App() {
       return updatedProjects;
     });
 
-    setIsCreateProject(false);
+    setIsCreatingProject(false);
   }
 
   return (
     <>
       <Sidebar
         projects={projects}
-        onAddProject={() => setIsCreateProject(true)}
+        onAddProject={() => setIsCreatingProject(true)}
       />
       <main className="w-full h-full ml-8">
-        {!currentProject && !isCreateProject && (
-          <EmptyProject onCreateProject={() => setIsCreateProject(true)} />
+        {!currentProject && !isCreatingProject && (
+          <EmptyProject onCreateProject={() => setIsCreatingProject(true)} />
         )}
-        {isCreateProject && <CreateProject onSave={handleCreateProject} />}
+        {isCreatingProject && <CreateProject onSave={handleCreateProject} />}
       </main>
     </>
   );

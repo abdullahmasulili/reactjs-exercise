@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <Sidebar />
-      <main>
+      <main className="w-full">
         <CreateProject />
       </main>
     </>

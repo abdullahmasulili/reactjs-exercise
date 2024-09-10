@@ -9,10 +9,10 @@ export default function Sidebar({ projects }) {
         + Add Project
       </Button>
       <nav className="list-none flex flex-col gap-1">
-        {projects.map((project) => {
+        {projects.map((project, index) => {
           return (
             <li
-              key={project.title}
+              key={index}
               className="p-2 hover:bg-stone-700 transition duration-200 cursor-pointer"
             >
               {project.title}

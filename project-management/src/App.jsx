@@ -19,11 +19,16 @@ function App() {
     setIsCreatingProject(false);
   }
 
+  function handleSelectedProject(projectData) {
+    setCurrentProject(projectData);
+  }
+
   return (
     <>
       <Sidebar
         projects={projects}
         onAddProject={() => setIsCreatingProject(true)}
+        onProjectClick={handleSelectedProject}
       />
       <main className="w-full h-full ml-8">
         {!currentProject && !isCreatingProject && (

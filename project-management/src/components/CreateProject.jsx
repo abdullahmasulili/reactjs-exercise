@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import InputField from "./InputField";
 
 export default function CreateProject() {
   return (
@@ -12,6 +13,11 @@ export default function CreateProject() {
           Save
         </Button>
       </div>
+      <form action="" className="flex flex-col gap-4">
+        <InputField label="title" type="text" />
+        <InputField label="description" type="textarea" />
+        <InputField label="due date" type="date" />
+      </form>
     </section>
   );
 }

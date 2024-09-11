@@ -24,6 +24,21 @@ function App() {
     setCurrentProject(projectData);
   }
 
+  function handleUpdateProject(project) {
+    setProjects((prevProjects) => {
+      const updatedProjects = [...prevProjects];
+      const projectIndex = updatedProjects.findIndex(
+        (project) => project === project
+      );
+
+      if (projectIndex !== -1) {
+        updatedProjects.splice(projectIndex, 1, project);
+      }
+
+      return updatedProjects;
+    });
+  }
+
   return (
     <>
       <Sidebar
@@ -42,7 +57,12 @@ function App() {
             onCancel={() => setIsCreatingProject(false)}
           />
         )}
-        {currentProject && <Project projectData={currentProject} />}
+        {currentProject && (
+          <Project
+            projectData={currentProject}
+            onTaskUpdate={handleUpdateProject}
+          />
+        )}
       </main>
     </>
   );

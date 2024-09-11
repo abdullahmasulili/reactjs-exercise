@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 
-export default function Sidebar({ projects, onAddProject, onProjectClick }) {
+export default function Sidebar({
+  projects,
+  onAddProject,
+  onProjectClick,
+  activeProject,
+}) {
   function handleProjectClick(project) {
     onProjectClick(project);
   }
@@ -21,7 +26,9 @@ export default function Sidebar({ projects, onAddProject, onProjectClick }) {
             <li
               onClick={() => handleProjectClick(project)}
               key={index}
-              className="p-2 hover:bg-stone-700 transition duration-200 cursor-pointer"
+              className={`p-2 hover:bg-stone-700 transition duration-200 rounded cursor-pointer ${
+                activeProject?.title === project.title && "bg-stone-700"
+              }`}
             >
               {project.title}
             </li>

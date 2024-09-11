@@ -2,6 +2,7 @@ import { useState } from "react";
 import CreateProject from "./components/CreateProject";
 import Sidebar from "./components/Sidebar";
 import EmptyProject from "./components/NoProject";
+import Project from "./components/Project";
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -29,6 +30,7 @@ function App() {
         projects={projects}
         onAddProject={() => setIsCreatingProject(true)}
         onProjectClick={handleSelectedProject}
+        activeProject={currentProject}
       />
       <main className="w-full h-full ml-8">
         {!currentProject && !isCreatingProject && (
@@ -40,6 +42,7 @@ function App() {
             onCancel={() => setIsCreatingProject(false)}
           />
         )}
+        {currentProject && <Project projectData={currentProject} />}
       </main>
     </>
   );

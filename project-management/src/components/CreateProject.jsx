@@ -12,6 +12,7 @@ export default function CreateProject({ onSave, onCancel }) {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
       dueDate: dueDateRef.current.value,
+      tasks: [],
     };
 
     onSave(data);

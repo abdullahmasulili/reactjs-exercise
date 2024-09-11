@@ -21,13 +21,13 @@ export default function CreateProject({ onSave, onCancel }) {
     <section id="create-project" className="max-w-3xl flex-grow">
       <div className="flex justify-end items-center gap-4">
         <Button
-          className="hover:bg-stone-950 hover:text-white bg-transparent transition px-4 py-2 rounded-lg"
+          customClass="hover:bg-stone-950 hover:text-white bg-transparent"
           onClick={onCancel}
         >
           Cancel
         </Button>
         <Button
-          className="transition px-4 py-2 rounded-lg bg-stone-950 hover:bg-stone-800 text-white"
+          customClass="bg-stone-950 hover:bg-stone-800 text-white"
           onClick={handleSaveProject}
         >
           Save

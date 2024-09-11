@@ -11,7 +11,7 @@ export default function Sidebar({ projects, onAddProject, onProjectClick }) {
       <h1 className="text-3xl font-bold uppercase">Your Projects</h1>
       <Button
         onClick={onAddProject}
-        className="rounded-lg bg-stone-700 px-4 py-2 hover:bg-stone-600 transition duration-200"
+        customClass="bg-stone-700 hover:bg-stone-600"
       >
         + Add Project
       </Button>

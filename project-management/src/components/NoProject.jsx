@@ -20,7 +20,7 @@ export default function EmptyProject({ onCreateProject }) {
       </p>
       <Button
         onClick={onCreateProject}
-        className="transition px-4 py-2 rounded-lg bg-stone-700 text-stone-200 hover:text-stone-50"
+        customClass="bg-stone-700 text-stone-200 hover:text-stone-50"
       >
         Create new project
       </Button>

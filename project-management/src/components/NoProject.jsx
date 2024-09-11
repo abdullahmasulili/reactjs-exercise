@@ -5,7 +5,7 @@ export default function EmptyProject({ onCreateProject }) {
   return (
     <section
       id="no-project"
-      className="max-w-3xl flex-grow text-stone-600 flex flex-col items-center gap-4 h-full justify-center"
+      className="max-w-3xl flex-grow text-stone-600 flex flex-col items-center gap-4 pt-20"
     >
       <figure className="flex justify-center">
         <img

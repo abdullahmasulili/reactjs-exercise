@@ -19,7 +19,7 @@ export default function CreateProject({ onSave, onCancel }) {
   }
 
   return (
-    <section id="create-project" className="max-w-3xl flex-grow">
+    <section id="create-project" className="max-w-3xl flex-grow pt-20">
       <div className="flex justify-end items-center gap-4">
         <Button
           customClass="hover:bg-stone-950 hover:text-white bg-transparent"

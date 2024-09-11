@@ -25,6 +25,7 @@ export default function Project({ projectData }) {
       </div>
       <span className="text-stone-500">{formateDate(dueDate)}</span>
       <p className="text-stone-600 mt-4">{description}</p>
+      <hr className="my-4 border-stone-500" />
     </section>
   );
 }

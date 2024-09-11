@@ -1,7 +1,11 @@
 import React, { useRef } from "react";
 import Button from "./Button";
 
-export default function Project({ projectData, onTaskUpdate }) {
+export default function Project({
+  projectData,
+  onTaskUpdate,
+  onDeleteProject,
+}) {
   const { title, description, dueDate, tasks } = projectData || {};
   const inputTaskRef = useRef();
 
@@ -35,7 +39,10 @@ export default function Project({ projectData, onTaskUpdate }) {
     <section id="project" className="max-w-3xl flex-grow pt-20">
       <div className="flex items-center justify-between mb-2">
         <h1 className="text-3xl font-bold text-stone-600">{title}</h1>
-        <Button customClass="hover:bg-stone-700 hover:text-stone-100">
+        <Button
+          onClick={onDeleteProject}
+          customClass="hover:bg-stone-700 hover:text-stone-100"
+        >
           Delete
         </Button>
       </div>

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Button from "./Button";
 import InputField from "./InputField";
 
-export default function CreateProject({ onSave }) {
+export default function CreateProject({ onSave, onCancel }) {
   const titleRef = useRef();
   const descriptionRef = useRef();
   const dueDateRef = useRef();
@@ -20,7 +20,10 @@ export default function CreateProject({ onSave }) {
   return (
     <section id="create-project" className="max-w-3xl flex-grow">
       <div className="flex justify-end items-center gap-4">
-        <Button className="hover:bg-stone-950 hover:text-white bg-transparent transition px-4 py-2 rounded-lg">
+        <Button
+          className="hover:bg-stone-950 hover:text-white bg-transparent transition px-4 py-2 rounded-lg"
+          onClick={onCancel}
+        >
           Cancel
         </Button>
         <Button

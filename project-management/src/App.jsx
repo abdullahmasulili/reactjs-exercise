@@ -34,7 +34,12 @@ function App() {
         {!currentProject && !isCreatingProject && (
           <EmptyProject onCreateProject={() => setIsCreatingProject(true)} />
         )}
-        {isCreatingProject && <CreateProject onSave={handleCreateProject} />}
+        {isCreatingProject && (
+          <CreateProject
+            onSave={handleCreateProject}
+            onCancel={() => setIsCreatingProject(false)}
+          />
+        )}
       </main>
     </>
   );

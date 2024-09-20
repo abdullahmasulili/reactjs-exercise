@@ -6,7 +6,6 @@ import Project from "./components/Project";
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [isCreatingProject, setIsCreatingProject] = useState(false);
   const [currentProject, setCurrentProject] = useState(null);
   const [projectsState, setProjectsState] = useState({
     currentProjectId: undefined,
@@ -97,10 +96,10 @@ function App() {
   return (
     <>
       <Sidebar
-        projects={projects}
+        projects={projectsState.projects}
         onInitiateNewProject={() => handleInitiateNewProject(null)}
         onProjectClick={handleSelectedProject}
-        activeProject={currentProject}
+        activeProject={projectsState.currentProjectId}
       />
       <main className="w-full h-full ml-8">{mainContent}</main>
     </>

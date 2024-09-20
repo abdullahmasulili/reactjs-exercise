@@ -11,6 +11,20 @@ export default function Sidebar({
     onProjectClick(project);
   }
 
+  const projectsList = projects.map((project, index) => {
+    return (
+      <li
+        onClick={() => handleProjectClick(project)}
+        key={index}
+        className={`p-2 hover:bg-stone-700 transition duration-200 rounded cursor-pointer ${
+          activeProject === project.id && "bg-stone-700"
+        }`}
+      >
+        {project.title}
+      </li>
+    );
+  });
+
   return (
     <aside className="w-1/3 md:w-72 bg-stone-900 p-8 pt-20 text-stone-50 h-full rounded-tr-3xl flex flex-col gap-8">
       <h1 className="md:text-xl font-bold uppercase text-stone-200">
@@ -22,21 +36,7 @@ export default function Sidebar({
       >
         + Add Project
       </Button>
-      <nav className="list-none flex flex-col gap-1">
-        {projects.map((project, index) => {
-          return (
-            <li
-              onClick={() => handleProjectClick(project)}
-              key={index}
-              className={`p-2 hover:bg-stone-700 transition duration-200 rounded cursor-pointer ${
-                activeProject?.title === project.title && "bg-stone-700"
-              }`}
-            >
-              {project.title}
-            </li>
-          );
-        })}
-      </nav>
+      <nav className="list-none flex flex-col gap-1">{projectsList}</nav>
     </aside>
   );
 }

@@ -24,11 +24,15 @@ function App() {
 
   function handleCreateProject(data) {
     setProjectsState((prevProjectsState) => {
-      const updatedProjectState = { ...prevProjectsState };
-      updatedProjectState.projects.push(data);
-      updatedProjectState.currentProjectId = data.id;
+      const newProject = {
+        ...data,
+        id: Math.random(),
+      };
 
-      return updatedProjectState;
+      return {
+        ...prevProjectsState,
+        projects: [...prevProjectsState.projects, newProject],
+      };
     });
   }
 

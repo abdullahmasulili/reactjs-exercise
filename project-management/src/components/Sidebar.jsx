@@ -12,11 +12,13 @@ export default function Sidebar({
   }
 
   return (
-    <aside className="w-96 bg-stone-950 p-8 pt-20 text-white h-full rounded-tr-3xl flex flex-col gap-8">
-      <h1 className="text-3xl font-bold uppercase">Your Projects</h1>
+    <aside className="w-1/3 md:w-72 bg-stone-900 p-8 pt-20 text-stone-50 h-full rounded-tr-3xl flex flex-col gap-8">
+      <h1 className="md:text-xl font-bold uppercase text-stone-200">
+        Your Projects
+      </h1>
       <Button
         onClick={onAddProject}
-        customClass="bg-stone-700 hover:bg-stone-600"
+        customClass="bg-stone-700 hover:bg-stone-600 text-stone-400 hover:text-stone-100"
       >
         + Add Project
       </Button>

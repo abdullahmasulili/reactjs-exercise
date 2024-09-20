@@ -3,7 +3,7 @@ import Button from "./Button";
 
 export default function Sidebar({
   projects,
-  onAddProject,
+  onInitiateNewProject,
   onProjectClick,
   activeProject,
 }) {
@@ -17,7 +17,7 @@ export default function Sidebar({
         Your Projects
       </h1>
       <Button
-        onClick={onAddProject}
+        onClick={onInitiateNewProject}
         customClass="bg-stone-700 hover:bg-stone-600 text-stone-400 hover:text-stone-100"
       >
         + Add Project

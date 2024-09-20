@@ -8,16 +8,28 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [isCreatingProject, setIsCreatingProject] = useState(false);
   const [currentProject, setCurrentProject] = useState(null);
+  const [projectsState, setProjectsState] = useState({
+    currentProjectId: undefined,
+    projects: [],
+  });
+
+  function handleInitiateNewProject(data) {
+    setProjectsState((prevProjectsState) => {
+      return {
+        ...prevProjectsState,
+        currentProjectId: data,
+      };
+    });
+  }
 
   function handleCreateProject(data) {
-    setProjects((prevProjects) => {
-      const updatedProjects = [...prevProjects];
-      updatedProjects.push(data);
+    setProjectsState((prevProjectsState) => {
+      const updatedProjectState = { ...prevProjectsState };
+      updatedProjectState.projects.push(data);
+      updatedProjectState.currentProjectId = data.id;
 
-      return updatedProjects;
+      return updatedProjectState;
     });
-
-    setIsCreatingProject(false);
   }
 
   function handleSelectedProject(projectData) {
@@ -53,32 +65,40 @@ function App() {
     });
   }
 
+  let mainContent;
+
+  if (projectsState.currentProjectId === null) {
+    mainContent = (
+      <CreateProject
+        onSave={handleCreateProject}
+        onCancel={() => handleInitiateNewProject(undefined)}
+      />
+    );
+  } else if (projectsState.currentProjectId === undefined) {
+    mainContent = (
+      <EmptyProject
+        onInitiateNewProject={() => handleInitiateNewProject(null)}
+      />
+    );
+  } else {
+    mainContent = (
+      <Project
+        projectData={currentProject}
+        onTaskUpdate={handleUpdateProject}
+        onDeleteProject={handleDeleteProject}
+      />
+    );
+  }
+
   return (
     <>
       <Sidebar
         projects={projects}
-        onAddProject={() => setIsCreatingProject(true)}
+        onInitiateNewProject={() => handleInitiateNewProject(null)}
         onProjectClick={handleSelectedProject}
         activeProject={currentProject}
       />
-      <main className="w-full h-full ml-8">
-        {!currentProject && !isCreatingProject && (
-          <EmptyProject onCreateProject={() => setIsCreatingProject(true)} />
-        )}
-        {isCreatingProject && (
-          <CreateProject
-            onSave={handleCreateProject}
-            onCancel={() => setIsCreatingProject(false)}
-          />
-        )}
-        {currentProject && (
-          <Project
-            projectData={currentProject}
-            onTaskUpdate={handleUpdateProject}
-            onDeleteProject={handleDeleteProject}
-          />
-        )}
-      </main>
+      <main className="w-full h-full ml-8">{mainContent}</main>
     </>
   );
 }

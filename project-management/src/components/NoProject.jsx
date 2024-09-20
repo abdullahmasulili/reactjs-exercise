@@ -1,7 +1,7 @@
 import ProjectImage from "../assets/no-projects.png";
 import Button from "./Button";
 
-export default function EmptyProject({ onCreateProject }) {
+export default function EmptyProject({ onInitiateNewProject }) {
   return (
     <section
       id="no-project"
@@ -19,7 +19,7 @@ export default function EmptyProject({ onCreateProject }) {
         Select a project or get started with a new one
       </p>
       <Button
-        onClick={onCreateProject}
+        onClick={onInitiateNewProject}
         customClass="bg-stone-700 text-stone-200 hover:text-stone-50"
       >
         Create new project

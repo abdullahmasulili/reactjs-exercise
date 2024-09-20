@@ -20,23 +20,34 @@ export default function CreateProject({ onSave, onCancel }) {
 
   return (
     <section id="create-project" className="max-w-3xl flex-grow pt-20">
-      <div className="flex justify-end items-center gap-4">
-        <Button
-          customClass="hover:bg-stone-950 hover:text-white bg-transparent"
-          onClick={onCancel}
-        >
-          Cancel
-        </Button>
-        <Button
-          customClass="bg-stone-950 hover:bg-stone-800 text-white"
-          onClick={handleSaveProject}
-        >
-          Save
-        </Button>
-      </div>
+      <menu>
+        <ul className="flex justify-end items-center gap-4">
+          <li>
+            <Button
+              customClass="hover:bg-stone-950 hover:text-white bg-transparent"
+              onClick={onCancel}
+            >
+              Cancel
+            </Button>
+          </li>
+          <li>
+            <Button
+              customClass="bg-stone-950 hover:bg-stone-800 text-white"
+              onClick={handleSaveProject}
+            >
+              Save
+            </Button>
+          </li>
+        </ul>
+      </menu>
       <form action="" className="flex flex-col gap-4">
         <InputField label="title" type="text" ref={titleRef} />
-        <InputField label="description" type="textarea" ref={descriptionRef} />
+        <InputField
+          label="description"
+          isTextarea
+          rows={4}
+          ref={descriptionRef}
+        />
         <InputField label="due date" type="date" ref={dueDateRef} />
       </form>
     </section>

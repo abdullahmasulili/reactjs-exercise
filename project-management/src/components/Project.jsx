@@ -9,23 +9,24 @@ export default function Project({
   const { title, description, dueDate, tasks } = projectData || {};
   const inputTaskRef = useRef();
 
-  function formateDate(dateString) {
-    const [year, month, day] = dateString.split("-");
-    const date = new Date(year, month - 1, day);
+  inputTaskRef.current.value = null;
 
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  }
+  const formattedDate = new Date(dueDate).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 
   function handleUpdateTask(actionType, index) {
-    const updatedProject = { ...projectData };
+    const updatedProject = {
+      ...projectData,
+      tasks: [...projectData.tasks],
+    };
 
     switch (actionType) {
       case "add":
         updatedProject.tasks.push(inputTaskRef.current.value);
+        inputTaskRef.current.value = null;
         break;
       case "remove":
         updatedProject.tasks.splice(index, 1);
@@ -37,17 +38,19 @@ export default function Project({
 
   return (
     <section id="project" className="max-w-3xl flex-grow pt-20">
-      <div className="flex items-center justify-between mb-2">
-        <h1 className="text-3xl font-bold text-stone-600">{title}</h1>
-        <Button
-          onClick={onDeleteProject}
-          customClass="hover:bg-stone-700 hover:text-stone-100"
-        >
-          Delete
-        </Button>
-      </div>
-      <span className="text-stone-500">{formateDate(dueDate)}</span>
-      <p className="text-stone-600 mt-4">{description}</p>
+      <header>
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-3xl font-bold text-stone-600">{title}</h1>
+          <Button
+            onClick={onDeleteProject}
+            customClass="hover:bg-red-700 hover:text-stone-50"
+          >
+            Delete
+          </Button>
+        </div>
+        <span className="text-stone-500">{formattedDate}</span>
+        <p className="text-stone-600 mt-4 whitespace-pre-wrap">{description}</p>
+      </header>
       <hr className="my-4 border-stone-500" />
       <h1 className="text-3xl font-bold text-stone-600">Tasks</h1>
       <div className="flex items-center mt-4 gap-2">
@@ -63,7 +66,7 @@ export default function Project({
           Add Task
         </Button>
       </div>
-      {tasks.length > 0 && (
+      {tasks.length > 0 ? (
         <ul className="flex flex-col gap-2 bg-stone-200 rounded p-4 mt-4 list-none">
           {tasks.map((task, index) => (
             <li key={index} className="flex items-center justify-between">
@@ -77,6 +80,8 @@ export default function Project({
             </li>
           ))}
         </ul>
+      ) : (
+        <p className="mt-4">This project does not have any tasks yet.</p>
       )}
     </section>
   );

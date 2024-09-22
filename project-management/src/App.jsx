@@ -39,18 +39,18 @@ function App() {
     handleInitiateNewProject(projectId);
   }
 
-  function handleUpdateProject(project) {
-    setProjects((prevProjects) => {
-      const updatedProjects = [...prevProjects];
-      const projectIndex = updatedProjects.findIndex(
-        (project) => project === project
+  function handleUpdateProject(projectData) {
+    setProjectsState((prevState) => {
+      const updatedState = { ...prevState, projects: [...prevState.projects] };
+      const projectIndex = updatedState.projects.findIndex(
+        (project) => project.id === projectData.id
       );
 
       if (projectIndex !== -1) {
-        updatedProjects.splice(projectIndex, 1, project);
+        updatedState.projects.splice(projectIndex, 1, projectData);
       }
 
-      return updatedProjects;
+      return updatedState;
     });
   }
 

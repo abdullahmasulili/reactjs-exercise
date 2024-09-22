@@ -7,18 +7,16 @@ export default function Sidebar({
   onProjectClick,
   activeProject,
 }) {
-  function handleProjectClick(project) {
-    onProjectClick(project);
-  }
-
   const projectsList = projects.map((project, index) => {
+    const stylingClasses = `p-2 hover:bg-stone-700 transition duration-200 rounded cursor-pointer ${
+      activeProject === project.id && "bg-stone-700"
+    }`;
+
     return (
       <li
-        onClick={() => handleProjectClick(project)}
+        onClick={() => onProjectClick(project.id)}
         key={index}
-        className={`p-2 hover:bg-stone-700 transition duration-200 rounded cursor-pointer ${
-          activeProject === project.id && "bg-stone-700"
-        }`}
+        className={stylingClasses}
       >
         {project.title}
       </li>

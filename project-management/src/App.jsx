@@ -6,7 +6,6 @@ import Project from "./components/Project";
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [currentProject, setCurrentProject] = useState(null);
   const [projectsState, setProjectsState] = useState({
     currentProjectId: undefined,
     projects: [],
@@ -30,13 +29,14 @@ function App() {
 
       return {
         ...prevProjectsState,
+        currentProjectId: undefined,
         projects: [...prevProjectsState.projects, newProject],
       };
     });
   }
 
-  function handleSelectedProject(projectData) {
-    setCurrentProject(projectData);
+  function handleSelectedProject(projectId) {
+    handleInitiateNewProject(projectId);
   }
 
   function handleUpdateProject(project) {
@@ -55,20 +55,30 @@ function App() {
   }
 
   function handleDeleteProject() {
-    setCurrentProject(null);
-    setProjects((prevProjects) => {
-      const updatedProjects = [...prevProjects];
-      const projectIndex = updatedProjects.findIndex(
-        (project) => project === currentProject
-      );
+    setProjectsState((prevState) => {
+      const updatedProjectState = {
+        ...prevState,
+        currentProjectId: undefined,
+        projects: prevState.projects.filter(
+          (project) => project.id !== prevState.currentProjectId
+        ),
+      };
 
-      updatedProjects.splice(projectIndex, 1);
-
-      return updatedProjects;
+      return updatedProjectState;
     });
   }
 
-  let mainContent;
+  const currentProject = projectsState.projects.find(
+    (project) => project.id === projectsState.currentProjectId
+  );
+
+  let mainContent = (
+    <Project
+      projectData={currentProject}
+      onTaskUpdate={handleUpdateProject}
+      onDeleteProject={handleDeleteProject}
+    />
+  );
 
   if (projectsState.currentProjectId === null) {
     mainContent = (
@@ -81,14 +91,6 @@ function App() {
     mainContent = (
       <EmptyProject
         onInitiateNewProject={() => handleInitiateNewProject(null)}
-      />
-    );
-  } else {
-    mainContent = (
-      <Project
-        projectData={currentProject}
-        onTaskUpdate={handleUpdateProject}
-        onDeleteProject={handleDeleteProject}
       />
     );
   }

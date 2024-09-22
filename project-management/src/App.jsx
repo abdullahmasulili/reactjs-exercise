@@ -5,10 +5,10 @@ import EmptyProject from "./components/NoProject";
 import Project from "./components/Project";
 
 function App() {
-  const [projects, setProjects] = useState([]);
   const [projectsState, setProjectsState] = useState({
     currentProjectId: undefined,
     projects: [],
+    tasks: [],
   });
 
   function handleInitiateNewProject(data) {
@@ -68,14 +68,41 @@ function App() {
     });
   }
 
+  function handleAddTask(task) {
+    setProjectsState((prevState) => {
+      const newTask = {
+        name: task,
+        projectId: projectsState.currentProjectId,
+        id: Math.random(),
+      };
+
+      return {
+        ...prevState,
+        tasks: [...prevState.tasks, newTask],
+      };
+    });
+  }
+
+  function handleRemoveTask(id) {
+    setProjectsState((prevState) => ({
+      ...prevState,
+      tasks: prevState.tasks.filter((task) => task.id !== id),
+    }));
+  }
+
   const currentProject = projectsState.projects.find(
     (project) => project.id === projectsState.currentProjectId
+  );
+  const currentProjectTasks = projectsState.tasks.filter(
+    (task) => task.projectId === projectsState.currentProjectId
   );
 
   let mainContent = (
     <Project
       projectData={currentProject}
-      onTaskUpdate={handleUpdateProject}
+      tasks={currentProjectTasks}
+      onAddTask={(task) => handleAddTask(task)}
+      onDeleteTask={(taskId) => handleRemoveTask(taskId)}
       onDeleteProject={handleDeleteProject}
     />
   );

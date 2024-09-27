@@ -3,33 +3,18 @@ import quizCompleteImg from "../assets/quiz-complete.png";
 import QUESTIONS from "../questions";
 
 export default function Summary({ answers }) {
-  let result = {
-    correct: 0,
-    wrong: 0,
-    skipped: 0,
-  };
-
-  for (let i = 0; i < answers.length; i++) {
-    if (answers[i] === QUESTIONS[i].answers[0]) {
-      result.correct++;
-      continue;
-    } else if (answers[i] === null) {
-      result.skipped++;
-      continue;
-    } else if (answers[i] !== QUESTIONS[i].answers[0]) {
-      result.wrong++;
-      continue;
-    }
-  }
-
-  console.log(result);
+  const correctAnswers = answers.filter(
+    (answer, index) => answer === QUESTIONS[index].answers[0]
+  );
+  const skippedAnswer = answers.filter((answer, index) => answer === null);
 
   const correctPercentage =
-    Math.round((result?.correct / QUESTIONS.length) * 100) || 0;
-  const wrongPercentage =
-    Math.round((result?.wrong / QUESTIONS.length) * 100) || 0;
+    Math.round((correctAnswers.length / QUESTIONS.length) * 100) || 0;
   const skippedPercentage =
-    Math.round((result?.skipped / QUESTIONS.length) * 100) || 0;
+    Math.round((skippedAnswer.length / QUESTIONS.length) * 100) || 0;
+  const wrongPercentage = 100 - (correctPercentage + skippedPercentage);
+
+  console.log(correctPercentage, skippedPercentage, wrongPercentage);
 
   return (
     <div id="summary">
@@ -51,11 +36,20 @@ export default function Summary({ answers }) {
       </div>
       <ol>
         {answers.map((answer, index) => {
+          let cssClass = "user-answer";
+
+          if (answer === null) {
+            cssClass += " skipped";
+          } else if (answer === QUESTIONS[index].answers[0]) {
+            cssClass += " correct";
+          } else {
+            cssClass += " wrong";
+          }
           return (
             <li key={index}>
               <h3>{index + 1}</h3>
               <p className="question">{QUESTIONS[index].text}</p>
-              <p className="user-answer">{answer ?? "Skipped"}</p>
+              <p className={cssClass}>{answer ?? "Skipped"}</p>
             </li>
           );
         })}

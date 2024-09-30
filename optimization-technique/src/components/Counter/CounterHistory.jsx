@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { log } from "../../log.js";
+import { memo } from "react";
 
 function HistoryItem({ count }) {
   log("<HistoryItem /> rendered", 3);
@@ -18,7 +19,7 @@ function HistoryItem({ count }) {
   );
 }
 
-export default function CounterHistory({ history }) {
+const CounterHistory = memo(({ history }) => {
   log("<CounterHistory /> rendered", 2);
 
   return (
@@ -28,4 +29,6 @@ export default function CounterHistory({ history }) {
       ))}
     </ol>
   );
-}
+});
+
+export default CounterHistory;

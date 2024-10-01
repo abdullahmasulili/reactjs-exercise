@@ -7,11 +7,13 @@ import logoImg from "./assets/logo.png";
 import AvailablePlaces from "./components/AvailablePlaces.jsx";
 
 import { updateSelectedPlaces } from "./http.js";
+import Error from "./components/Error.jsx";
 
 function App() {
   const selectedPlace = useRef();
 
   const [userPlaces, setUserPlaces] = useState([]);
+  const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -38,7 +40,10 @@ function App() {
     try {
       await updateSelectedPlaces([selectedPlace, ...userPlaces]);
     } catch (error) {
-      //...
+      setUserPlaces(userPlaces);
+      setErrorUpdatingPlaces({
+        message: error.message || "Failed to update the selected places",
+      });
     }
   }
 
@@ -50,8 +55,22 @@ function App() {
     setModalIsOpen(false);
   }, []);
 
+  const handleCloseErrorModal = useCallback(() => {
+    setErrorUpdatingPlaces(null);
+  }, []);
+
   return (
     <>
+      <Modal open={errorUpdatingPlaces} onClose={handleCloseErrorModal}>
+        {errorUpdatingPlaces && (
+          <Error
+            title="An Error Occurred!"
+            message={errorUpdatingPlaces.message}
+            onConfirm={handleCloseErrorModal}
+          />
+        )}
+      </Modal>
+
       <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
         <DeleteConfirmation
           onCancel={handleStopRemovePlace}

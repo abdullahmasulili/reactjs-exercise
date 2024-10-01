@@ -29,3 +29,15 @@ export async function updateSelectedPlaces(places) {
 
   return resData.message;
 }
+
+export async function fetchUserPlaces() {
+  const response = await fetch(import.meta.env.VITE_BASE_API + "/user-places");
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user places...");
+  }
+
+  const resData = await response.json();
+
+  return resData.places;
+}

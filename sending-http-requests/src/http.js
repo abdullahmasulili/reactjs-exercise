@@ -11,3 +11,21 @@ export async function fetchAvailablePlaces() {
 
   return resData.places;
 }
+
+export async function updateSelectedPlaces(places) {
+  const response = await fetch(import.meta.env.VITE_BASE_API + "/user-places", {
+    method: "PUT",
+    body: JSON.stringify({ places }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to update user data...");
+  }
+
+  return resData.message;
+}

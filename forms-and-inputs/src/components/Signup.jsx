@@ -1,6 +1,15 @@
 export default function Signup() {
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const acquisitonChannels = formData.getAll("acquisition");
+    const inputValues = Object.fromEntries(formData.entries());
+    inputValues.acquisition = acquisitonChannels;
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 

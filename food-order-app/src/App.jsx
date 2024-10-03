@@ -1,21 +1,19 @@
-import { fetchMeals } from "./api/products";
 import Header from "./components/Header";
 import Products from "./components/Products";
-import useFetch from "./hooks/useFetch";
+import ProductContextProvider from "./context/products-context";
 
 function App() {
-  const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals, []);
-
   return (
     <>
-      <Header />
-      <main>
-        <Products
-          data={meals}
-          isLoading={isLoading}
-          fallbackText={error?.message}
-        />
-      </main>
+      <ProductContextProvider>
+        <Header />
+        <main>
+          <Products
+            loadingText="Retrieving Meals, Please wait..."
+            fallbackText="No Meals Can Be Displayed"
+          />
+        </main>
+      </ProductContextProvider>
     </>
   );
 }

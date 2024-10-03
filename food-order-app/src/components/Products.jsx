@@ -1,21 +1,17 @@
-import { memo } from "react";
+import { memo, useContext } from "react";
 import { BASE_API_URL } from "../util/CONSTANTS";
+import { ProductContext } from "../context/products-context";
 
-const Products = memo(function Products({
-  data,
-  isLoading,
-  fallbackText,
-  loadingText,
-}) {
-  console.log(data);
+const Products = memo(function Products({ loadingText, fallbackText }) {
+  const { products: meals, isLoading, error } = useContext(ProductContext);
 
   return (
     <ul id="meals">
       {isLoading && <p>{loadingText}</p>}
-      {fallbackText && <p>{fallbackText}</p>}
-      {data.length > 0 &&
+      {error && <p>{fallbackText}</p>}
+      {meals.length > 0 &&
         !isLoading &&
-        data.map((meal) => (
+        meals.map((meal) => (
           <li className="meal-item" key={meal.id}>
             <article>
               <img src={BASE_API_URL + `/${meal.image}`} alt={meal.name} />

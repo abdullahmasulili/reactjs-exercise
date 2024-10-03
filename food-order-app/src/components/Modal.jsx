@@ -6,15 +6,17 @@ const Modal = forwardRef(function Modal({ children }, ref) {
 
   useImperativeHandle(ref, () => ({
     open() {
-      dialogRef.showModal();
+      dialogRef.current.showModal();
     },
     close() {
-      dialogRef.close();
+      dialogRef.current.close();
     },
   }));
 
   return createPortal(
-    <dialog className="modal">{children}</dialog>,
+    <dialog className="modal" ref={dialogRef}>
+      {children}
+    </dialog>,
     document.querySelector("#modal")
   );
 });

@@ -1,9 +1,10 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 export const CartContext = createContext({
   products: [],
   addItemToCart: function () {},
   updateItemQuantity: function () {},
+  cartTotal: 0,
 });
 
 function productCartReducer(state, action) {
@@ -86,11 +87,17 @@ export default function CartContextProvider({ children }) {
     });
   }
 
-  const contextValue = useContext({
+  const cartTotal = productCartState.products.reduce(
+    (acc, product) => (acc += product.price),
+    0
+  );
+
+  const contextValue = {
     products: productCartState.products,
     addItemToCart: handleAddProductToCart,
     updateItemQuantity: handleUpdateCartItemQuantity,
-  });
+    cartTotal,
+  };
 
   return (
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>

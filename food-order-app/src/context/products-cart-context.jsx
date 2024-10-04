@@ -7,11 +7,12 @@ export const CartContext = createContext({
 });
 
 function productCartReducer(state, action) {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case "ADD_ITEM": {
       const updatedCart = [...state.products];
       const existingItemIndex = state.products.findIndex(
-        (product) => product.id === action.payload.productId
+        (product) => product.id === payload.product.id
       );
       const existingCartItem = updatedCart[existingItemIndex];
 
@@ -20,12 +21,43 @@ function productCartReducer(state, action) {
           ...existingCartItem,
           quantity: existingCartItem.quantity + 1,
         };
+
         updatedCart[existingItemIndex] = updatedItem;
+      } else {
+        updatedCart.push({
+          id: payload.product.id,
+          name: payload.product.name,
+          price: payload.product.price,
+          quantity: 1,
+        });
       }
-      break;
+
+      return {
+        ...state,
+        products: updatedCart,
+      };
     }
-    case "UPDATE_ITEM":
-      break;
+
+    case "UPDATE_ITEM": {
+      const updatedCart = [...state.products];
+      const cartItemIndex = updatedCart.findIndex(
+        (item) => item.id === payload.productId
+      );
+      const updatedCartItem = { ...updatedCart[cartItemIndex] };
+
+      updatedCartItem.quantity += payload.amount;
+
+      if (updatedCartItem.quantity <= 0) {
+        updatedCart.splice(cartItemIndex, 1);
+      } else {
+        updatedCart[cartItemIndex] = updatedCartItem;
+      }
+
+      return {
+        ...state,
+        updatedCart,
+      };
+    }
   }
 }
 
@@ -37,18 +69,18 @@ export default function CartContextProvider({ children }) {
     }
   );
 
-  function handleAddProductToCart(productId) {
+  function handleAddProductToCart(product) {
     productCartDispatch({
       type: "ADD_ITEM",
-      payload: productId,
+      payload: product,
     });
   }
 
-  function handleUpdateCartItemQuantity(productId, amount) {
+  function handleUpdateCartItemQuantity(product, amount) {
     productCartDispatch({
       type: "UPDATE_ITEM",
       payload: {
-        productId,
+        product,
         amount,
       },
     });

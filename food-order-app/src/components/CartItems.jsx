@@ -15,8 +15,8 @@ export default function CartItems() {
           products.map((product) => (
             <li key={product.id} className="cart-item">
               <p>
-                {product.name} - {product.quantity} x
-                {currency.format(product.price)}
+                {`${product.name} - ${product.quantity} x 
+                ${currency.format(product.price)}`}
               </p>
               <div className="cart-item-actions">
                 <button>-</button>

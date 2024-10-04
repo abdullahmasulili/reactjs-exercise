@@ -4,6 +4,7 @@ import Modal from "./components/Modal";
 import Products from "./components/Products";
 import ProductContextProvider from "./context/products-context";
 import Cart from "./components/Cart";
+import CartContextProvider from "./context/products-cart-context";
 
 function App() {
   const cartRef = useRef();
@@ -19,9 +20,11 @@ function App() {
   return (
     <>
       <ProductContextProvider>
-        <Modal ref={cartRef}>
-          <Cart onClose={handleCloseCart} />
-        </Modal>
+        <CartContextProvider>
+          <Modal ref={cartRef}>
+            <Cart onClose={handleCloseCart} />
+          </Modal>
+        </CartContextProvider>
         <Header onCartClick={handleOpenCart} />
         <main>
           <Products

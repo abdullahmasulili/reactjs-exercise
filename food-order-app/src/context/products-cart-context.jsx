@@ -9,6 +9,7 @@ export const CartContext = createContext({
 
 function productCartReducer(state, action) {
   const { type, payload } = action;
+  console.log(payload);
   switch (type) {
     case "ADD_ITEM": {
       const updatedCart = [...state.products];
@@ -42,7 +43,7 @@ function productCartReducer(state, action) {
     case "UPDATE_ITEM": {
       const updatedCart = [...state.products];
       const cartItemIndex = updatedCart.findIndex(
-        (item) => item.id === payload.productId
+        (item) => item.id === payload.product.id
       );
       const updatedCartItem = { ...updatedCart[cartItemIndex] };
 
@@ -73,7 +74,7 @@ export default function CartContextProvider({ children }) {
   function handleAddProductToCart(product) {
     productCartDispatch({
       type: "ADD_ITEM",
-      payload: product,
+      payload: { product },
     });
   }
 

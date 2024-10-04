@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CartItems from "./CartItems";
 import Checkout from "./Checkout";
+import { CartContext } from "../context/products-cart-context";
 
 export default function Cart({ onClose }) {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const { products } = useContext(CartContext);
 
   function handleStartCheckout() {
     setIsCheckingOut(true);
@@ -37,7 +39,11 @@ export default function Cart({ onClose }) {
         <button className="text-button" onClick={handleClose}>
           Close
         </button>
-        <button className="button" onClick={mainActionButtonHandler}>
+        <button
+          className="button"
+          onClick={mainActionButtonHandler}
+          disabled={products.length < 1}
+        >
           {mainActionButtonCaption}
         </button>
       </div>

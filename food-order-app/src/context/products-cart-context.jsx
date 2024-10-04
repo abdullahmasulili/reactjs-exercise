@@ -57,7 +57,7 @@ function productCartReducer(state, action) {
 
       return {
         ...state,
-        updatedCart,
+        products: updatedCart,
       };
     }
   }

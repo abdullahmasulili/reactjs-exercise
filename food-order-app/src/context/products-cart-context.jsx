@@ -9,7 +9,7 @@ export const CartContext = createContext({
 
 function productCartReducer(state, action) {
   const { type, payload } = action;
-  console.log(payload);
+
   switch (type) {
     case "ADD_ITEM": {
       const updatedCart = [...state.products];

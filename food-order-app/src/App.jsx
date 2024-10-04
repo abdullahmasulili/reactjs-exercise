@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 import Products from "./components/Products";
@@ -7,25 +7,34 @@ import Cart from "./components/Cart";
 import CartContextProvider from "./context/products-cart-context";
 
 function App() {
-  const cartRef = useRef();
+  const modalRef = useRef();
+  const [activeModal, setActiveModal] = useState(null);
 
-  const handleOpenCart = useCallback(function handleOpenCart() {
-    cartRef.current.open();
-  }, []);
+  const handleOpenModal = useCallback(
+    function handleOpenModal(modalType) {
+      if (!activeModal) {
+        modalRef.current.open();
+      }
 
-  const handleCloseCart = useCallback(function handleCloseCart() {
-    cartRef.current.close();
+      setActiveModal(modalType);
+    },
+    [activeModal]
+  );
+
+  const handleCloseModal = useCallback(function handleCloseModal() {
+    setActiveModal(null);
+    modalRef.current.close();
   }, []);
 
   return (
     <>
       <ProductContextProvider>
         <CartContextProvider>
-          <Modal ref={cartRef}>
-            <Cart onClose={handleCloseCart} />
+          <Modal ref={modalRef}>
+            {activeModal === "cart" && <Cart onClose={handleCloseModal} />}
           </Modal>
         </CartContextProvider>
-        <Header onCartClick={handleOpenCart} />
+        <Header onCartClick={() => handleOpenModal("cart")} />
         <main>
           <Products
             loadingText="Retrieving Meals, Please wait..."

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import CartItems from "./CartItems";
 import Checkout from "./Checkout";
 import { CartContext } from "../context/products-cart-context";
+import Button from "./Button";
 
 export default function Cart({ onClose }) {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -36,16 +37,13 @@ export default function Cart({ onClose }) {
       {!isCheckingOut && <CartItems />}
       {isCheckingOut && <Checkout />}
       <div className="modal-actions">
-        <button className="text-button" onClick={handleClose}>
-          Close
-        </button>
-        <button
+        <Button caption="Close" className="text-button" onClick={handleClose} />
+        <Button
+          caption={mainActionButtonCaption}
           className="button"
           onClick={mainActionButtonHandler}
           disabled={products.length < 1}
-        >
-          {mainActionButtonCaption}
-        </button>
+        />
       </div>
     </div>
   );

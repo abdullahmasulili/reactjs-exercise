@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import Logo from "../assets/logo.jpg";
 import { CartContext } from "../context/products-cart-context";
+import Button from "./Button";
 
 export default function Header({ onCartClick }) {
   const { products } = useContext(CartContext);
@@ -11,9 +12,11 @@ export default function Header({ onCartClick }) {
         <img src={Logo} alt="application logo" />
         REACTFOOD
       </h1>
-      <button className="text-button" onClick={onCartClick}>
-        Cart ({products.length})
-      </button>
+      <Button
+        caption={`Cart (${products.length})`}
+        className="text-button"
+        onClick={onCartClick}
+      />
     </header>
   );
 }

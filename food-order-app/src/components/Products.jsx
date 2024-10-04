@@ -4,6 +4,7 @@ import { ProductContext } from "../context/products-context";
 import { CartContext } from "../context/products-cart-context";
 
 import { currency } from "../util/currency";
+import Button from "./Button";
 
 const Products = memo(function Products({ loadingText, fallbackText }) {
   const { products: meals, isLoading, error } = useContext(ProductContext);
@@ -24,11 +25,12 @@ const Products = memo(function Products({ loadingText, fallbackText }) {
                 <p className="meal-item-price">{currency.format(meal.price)}</p>
                 <p>{meal.description}</p>
               </div>
-              <div
-                className="meal-item-actions"
-                onClick={() => addItemToCart(meal, 1)}
-              >
-                <button className="button">Add To Cart</button>
+              <div className="meal-item-actions">
+                <Button
+                  caption="Add To Cart"
+                  className="button"
+                  onClick={() => addItemToCart(meal, 1)}
+                />
               </div>
             </article>
           </li>

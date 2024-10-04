@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { currency } from "../util/currency.js";
 import { CartContext } from "../context/products-cart-context.jsx";
+import Button from "./Button.jsx";
 
 export default function CartItems() {
   const { products, updateItemQuantity, cartTotal } = useContext(CartContext);
@@ -19,13 +20,15 @@ export default function CartItems() {
                 ${currency.format(product.price)}`}
               </p>
               <div className="cart-item-actions">
-                <button onClick={() => updateItemQuantity(product, -1)}>
-                  -
-                </button>
+                <Button
+                  caption="-"
+                  onClick={() => updateItemQuantity(product, -1)}
+                />
                 <p>{product.quantity}</p>
-                <button onClick={() => updateItemQuantity(product, 1)}>
-                  +
-                </button>
+                <Button
+                  caption="+"
+                  onClick={() => updateItemQuantity(product, 1)}
+                />
               </div>
             </li>
           ))}

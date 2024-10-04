@@ -24,14 +24,14 @@ function App() {
           <Modal ref={modalRef}>
             <Cart onClose={handleCloseModal} />
           </Modal>
+          <Header onCartClick={handleOpenModal} />
+          <main>
+            <Products
+              loadingText="Retrieving Meals, Please wait..."
+              fallbackText="No Meals Can Be Displayed"
+            />
+          </main>
         </CartContextProvider>
-        <Header onCartClick={handleOpenModal} />
-        <main>
-          <Products
-            loadingText="Retrieving Meals, Please wait..."
-            fallbackText="No Meals Can Be Displayed"
-          />
-        </main>
       </ProductContextProvider>
     </>
   );

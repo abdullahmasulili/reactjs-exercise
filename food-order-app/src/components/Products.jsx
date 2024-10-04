@@ -1,9 +1,11 @@
 import { memo, useContext } from "react";
 import { BASE_API_URL } from "../util/CONSTANTS";
 import { ProductContext } from "../context/products-context";
+import { CartContext } from "../context/products-cart-context";
 
 const Products = memo(function Products({ loadingText, fallbackText }) {
   const { products: meals, isLoading, error } = useContext(ProductContext);
+  const { addItemToCart } = useContext(CartContext);
 
   return (
     <ul id="meals">
@@ -20,7 +22,10 @@ const Products = memo(function Products({ loadingText, fallbackText }) {
                 <p className="meal-item-price">{meal.price}</p>
                 <p>{meal.description}</p>
               </div>
-              <div className="meal-item-actions">
+              <div
+                className="meal-item-actions"
+                onClick={() => addItemToCart(meal, 1)}
+              >
                 <button className="button">Add To Cart</button>
               </div>
             </article>

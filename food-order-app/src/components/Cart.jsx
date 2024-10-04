@@ -13,6 +13,11 @@ export default function Cart({ onClose }) {
     console.log("Placing order, please wait...");
   }
 
+  function handleClose() {
+    setIsCheckingOut(false);
+    onClose();
+  }
+
   let modalTitle = "Your Cart";
   let mainActionButtonCaption = "Checkout";
   let mainActionButtonHandler = handleStartCheckout;
@@ -29,7 +34,7 @@ export default function Cart({ onClose }) {
       {!isCheckingOut && <CartItems />}
       {isCheckingOut && <Checkout />}
       <div className="modal-actions">
-        <button className="text-button" onClick={onClose}>
+        <button className="text-button" onClick={handleClose}>
           Close
         </button>
         <button className="button" onClick={mainActionButtonHandler}>

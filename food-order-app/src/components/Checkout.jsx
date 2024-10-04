@@ -3,7 +3,7 @@ import Input from "./Input";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
-export default function Checkout() {
+export default function Checkout({ onSubmit, children }) {
   const OrderSchema = Yup.object().shape({
     fullName: Yup.string()
       .min(5, "Too Short!")
@@ -29,9 +29,7 @@ export default function Checkout() {
           city: "",
         }}
         validationSchema={OrderSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={(values) => onSubmit(values)}
       >
         {({ errors, touched }) => (
           <Form>
@@ -74,6 +72,7 @@ export default function Checkout() {
                 isTouched={touched.city}
               />
             </div>
+            {children}
           </Form>
         )}
       </Formik>

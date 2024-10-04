@@ -12,8 +12,8 @@ export default function Cart({ onClose }) {
     setIsCheckingOut(true);
   }
 
-  function handleSubmitOrder() {
-    console.log("Placing order, please wait...");
+  function handleSubmitOrder(values) {
+    console.log(values);
   }
 
   function handleClose() {
@@ -22,29 +22,49 @@ export default function Cart({ onClose }) {
   }
 
   let modalTitle = "Your Cart";
-  let mainActionButtonCaption = "Checkout";
-  let mainActionButtonHandler = handleStartCheckout;
 
   if (isCheckingOut) {
     modalTitle = "Checkout";
-    mainActionButtonCaption = "Submit Order";
-    mainActionButtonHandler = handleSubmitOrder;
   }
 
   return (
     <div className="cart">
       <h2>{modalTitle}</h2>
-      {!isCheckingOut && <CartItems />}
-      {isCheckingOut && <Checkout />}
-      <div className="modal-actions">
-        <Button caption="Close" className="text-button" onClick={handleClose} />
-        <Button
-          caption={mainActionButtonCaption}
-          className="button"
-          onClick={mainActionButtonHandler}
-          disabled={products.length < 1}
-        />
-      </div>
+      {!isCheckingOut && (
+        <CartItems>
+          <div className="modal-actions">
+            <Button
+              caption="Close"
+              className="text-button"
+              onClick={handleClose}
+            />
+            <Button
+              caption="Checkout"
+              className="button"
+              onClick={handleStartCheckout}
+              disabled={products.length < 1}
+            />
+          </div>
+        </CartItems>
+      )}
+      {isCheckingOut && (
+        <Checkout onSubmit={handleSubmitOrder}>
+          <div className="modal-actions">
+            <Button
+              type="button"
+              caption="Close"
+              className="text-button"
+              onClick={handleClose}
+            />
+            <Button
+              type="submit"
+              caption="Submit Order"
+              className="button"
+              disabled={products.length < 1}
+            />
+          </div>
+        </Checkout>
+      )}
     </div>
   );
 }

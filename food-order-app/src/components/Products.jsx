@@ -3,6 +3,8 @@ import { BASE_API_URL } from "../util/CONSTANTS";
 import { ProductContext } from "../context/products-context";
 import { CartContext } from "../context/products-cart-context";
 
+import { currency } from "../util/currency";
+
 const Products = memo(function Products({ loadingText, fallbackText }) {
   const { products: meals, isLoading, error } = useContext(ProductContext);
   const { addItemToCart } = useContext(CartContext);
@@ -19,7 +21,7 @@ const Products = memo(function Products({ loadingText, fallbackText }) {
               <img src={BASE_API_URL + `/${meal.image}`} alt={meal.name} />
               <div className="meal-item-description">
                 <h3>{meal.name}</h3>
-                <p className="meal-item-price">{meal.price}</p>
+                <p className="meal-item-price">{currency.format(meal.price)}</p>
                 <p>{meal.description}</p>
               </div>
               <div

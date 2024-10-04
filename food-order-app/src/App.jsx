@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Modal from "./components/Modal";
 import Products from "./components/Products";
 import ProductContextProvider from "./context/products-context";
+import Cart from "./components/Cart";
 
 function App() {
   const cartRef = useRef();
@@ -11,13 +12,15 @@ function App() {
     cartRef.current.open();
   }, []);
 
+  const handleCloseCart = useCallback(function handleCloseCart() {
+    cartRef.current.close();
+  }, []);
+
   return (
     <>
       <ProductContextProvider>
         <Modal ref={cartRef}>
-          <div className="cart">
-            <h2>Your Cart</h2>
-          </div>
+          <Cart onClose={handleCloseCart} />
         </Modal>
         <Header onCartClick={handleOpenCart} />
         <main>

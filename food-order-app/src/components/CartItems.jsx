@@ -19,9 +19,13 @@ export default function CartItems() {
                 ${currency.format(product.price)}`}
               </p>
               <div className="cart-item-actions">
-                <button>-</button>
+                <button onClick={() => updateItemQuantity(product, -1)}>
+                  -
+                </button>
                 <p>{product.quantity}</p>
-                <button>+</button>
+                <button onClick={() => updateItemQuantity(product, 1)}>
+                  +
+                </button>
               </div>
             </li>
           ))}

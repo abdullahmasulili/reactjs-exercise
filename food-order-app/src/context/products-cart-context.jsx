@@ -89,7 +89,7 @@ export default function CartContextProvider({ children }) {
   }
 
   const cartTotal = productCartState.products.reduce(
-    (acc, product) => (acc += product.price),
+    (acc, product) => acc + product.price * product.quantity,
     0
   );
 

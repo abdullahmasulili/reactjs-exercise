@@ -11,3 +11,21 @@ export async function fetchMeals() {
 
   return resData;
 }
+
+export async function addOrder(order) {
+  const response = await fetch(BASE_API_URL + "/orders", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application-json",
+    },
+    body: JSON.stringify({ order }),
+  });
+
+  if (!response.ok) {
+    throw new Error(response.error.message || "Failed to submit order");
+  }
+
+  const resData = await response.json();
+
+  return resData.message;
+}

@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import CartItems from "./CartItems";
 import Checkout from "./Checkout";
 import { CartContext } from "../context/products-cart-context";
-import Button from "./Button";
+import Button from "./UI/Button";
+import { addOrder } from "../api/products";
 
 export default function Cart({ onClose }) {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -12,8 +13,17 @@ export default function Cart({ onClose }) {
     setIsCheckingOut(true);
   }
 
-  function handleSubmitOrder(values) {
-    console.log(values);
+  async function handleSubmitOrder(values) {
+    const order = {
+      ...values,
+      items: products,
+    };
+
+    try {
+      await addOrder(order);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   function handleClose() {
@@ -56,12 +66,7 @@ export default function Cart({ onClose }) {
               className="text-button"
               onClick={handleClose}
             />
-            <Button
-              type="submit"
-              caption="Submit Order"
-              className="button"
-              disabled={products.length < 1}
-            />
+            <Button type="submit" caption="Submit Order" className="button" />
           </div>
         </Checkout>
       )}

@@ -16,7 +16,7 @@ export default function Checkout() {
   const { cartTotal } = useContext(CartContext);
 
   return (
-    <Modal open={progress === "checkout"}>
+    <Modal open={progress === "checkout"} onClose={hideCheckout}>
       <Formik
         initialValues={{
           name: "",

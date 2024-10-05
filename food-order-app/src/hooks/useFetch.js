@@ -5,6 +5,10 @@ export default function useFetch(fetchFn, initialValue, fetchMethod) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
+  function resetData() {
+    setFetchedData(initialValue);
+  }
+
   const fetchData = useCallback(
     async function fetchData(payload) {
       setIsLoading(true);
@@ -28,5 +32,5 @@ export default function useFetch(fetchFn, initialValue, fetchMethod) {
     }
   }, [fetchData, fetchMethod]);
 
-  return { fetchedData, isLoading, error, fetchData };
+  return { fetchedData, isLoading, error, fetchData, resetData };
 }

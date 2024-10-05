@@ -21,6 +21,7 @@ export default function Checkout() {
     isLoading: isSubmitting,
     error,
     fetchData,
+    resetData,
   } = useFetch(addOrder, undefined, "POST");
 
   async function handleSubmit(values) {
@@ -35,6 +36,7 @@ export default function Checkout() {
   function handleFinishSubmit() {
     hideCheckout();
     clearCart();
+    resetData();
   }
 
   let actions = (

@@ -12,11 +12,9 @@ export default function Header({ onCartClick }) {
         <img src={Logo} alt="application logo" />
         REACTFOOD
       </h1>
-      <Button
-        caption={`Cart (${products.length})`}
-        className="text-button"
-        onClick={onCartClick}
-      />
+      <Button textOnly onClick={onCartClick}>
+        Cart ({products.length})
+      </Button>
     </header>
   );
 }

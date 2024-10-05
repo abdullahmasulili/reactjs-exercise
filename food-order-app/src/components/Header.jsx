@@ -5,6 +5,10 @@ import Button from "./UI/Button";
 
 export default function Header({ onCartClick }) {
   const { products } = useContext(CartContext);
+  const totalCartIitems = products.reduce(
+    (acc, product) => acc + product.quantity,
+    0
+  );
 
   return (
     <header id="main-header">
@@ -14,7 +18,7 @@ export default function Header({ onCartClick }) {
       </div>
       <nav>
         <Button textOnly onClick={onCartClick}>
-          Cart ({products.length})
+          Cart ({totalCartIitems})
         </Button>
       </nav>
     </header>

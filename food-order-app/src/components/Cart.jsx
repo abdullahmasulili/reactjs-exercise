@@ -43,30 +43,25 @@ export default function Cart({ onClose }) {
       {!isCheckingOut && (
         <CartItems>
           <div className="modal-actions">
+            <Button textOnly onClick={handleClose}>
+              Close
+            </Button>
             <Button
-              caption="Close"
-              className="text-button"
-              onClick={handleClose}
-            />
-            <Button
-              caption="Checkout"
-              className="button"
               onClick={handleStartCheckout}
               disabled={products.length < 1}
-            />
+            >
+              Checkout
+            </Button>
           </div>
         </CartItems>
       )}
       {isCheckingOut && (
         <Checkout onSubmit={handleSubmitOrder}>
           <div className="modal-actions">
-            <Button
-              type="button"
-              caption="Close"
-              className="text-button"
-              onClick={handleClose}
-            />
-            <Button type="submit" caption="Submit Order" className="button" />
+            <Button type="button" textOnly onClick={handleClose}>
+              Close
+            </Button>
+            <Button type="submit">Submit Order</Button>
           </div>
         </Checkout>
       )}

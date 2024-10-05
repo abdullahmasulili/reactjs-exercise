@@ -1,71 +1,32 @@
-import { useContext, useState } from "react";
-import CartItems from "./CartItems";
-import Checkout from "./Checkout";
+import { useContext } from "react";
+
 import { CartContext } from "../context/products-cart-context";
+import { UserProgressContext } from "../context/user-progress-context";
+
+import CartItems from "./CartItems";
 import Button from "./UI/Button";
-import { addOrder } from "../api/products";
+import Modal from "./Modal";
 
-export default function Cart({ onClose }) {
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
+export default function Cart() {
   const { products } = useContext(CartContext);
-
-  function handleStartCheckout() {
-    setIsCheckingOut(true);
-  }
-
-  async function handleSubmitOrder(values) {
-    const order = {
-      ...values,
-      items: products,
-    };
-
-    try {
-      await addOrder(order);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  function handleClose() {
-    setIsCheckingOut(false);
-    onClose();
-  }
-
-  let modalTitle = "Your Cart";
-
-  if (isCheckingOut) {
-    modalTitle = "Checkout";
-  }
+  const {
+    hideModal: hideCart,
+    showCheckout,
+    progress,
+  } = useContext(UserProgressContext);
 
   return (
-    <div className="cart">
-      <h2>{modalTitle}</h2>
-      {!isCheckingOut && (
-        <>
-          <CartItems />
-          <div className="modal-actions">
-            <Button textOnly onClick={handleClose}>
-              Close
-            </Button>
-            <Button
-              onClick={handleStartCheckout}
-              disabled={products.length < 1}
-            >
-              Checkout
-            </Button>
-          </div>
-        </>
-      )}
-      {isCheckingOut && (
-        <Checkout onSubmit={handleSubmitOrder}>
-          <div className="modal-actions">
-            <Button type="button" textOnly onClick={handleClose}>
-              Close
-            </Button>
-            <Button type="submit">Submit Order</Button>
-          </div>
-        </Checkout>
-      )}
-    </div>
+    <Modal className="cart" open={progress === "cart"}>
+      <h2>Your Cart</h2>
+      <CartItems />
+      <div className="modal-actions">
+        <Button textOnly onClick={hideCart}>
+          Close
+        </Button>
+        <Button onClick={showCheckout} disabled={products.length < 1}>
+          Checkout
+        </Button>
+      </div>
+    </Modal>
   );
 }

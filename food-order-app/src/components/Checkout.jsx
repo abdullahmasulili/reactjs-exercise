@@ -1,9 +1,15 @@
+import { useContext } from "react";
 import { currency } from "../util/formatter";
+import Modal from "./Modal";
 import Input from "./UI/Input";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { UserProgressContext } from "../context/user-progress-context";
+import Button from "./UI/Button";
 
-export default function Checkout({ onSubmit, children }) {
+export default function Checkout() {
+  const { hideModal: hideCheckout, progress } = useContext(UserProgressContext);
+
   const OrderSchema = Yup.object().shape({
     name: Yup.string()
       .min(5, "Too Short!")
@@ -18,7 +24,8 @@ export default function Checkout({ onSubmit, children }) {
   });
 
   return (
-    <>
+    <Modal className="cart" open={progress === "checkout"}>
+      <h2>Checkout</h2>
       <p>Total Amount : {currency.format(84)}</p>
       <Formik
         initialValues={{
@@ -29,7 +36,7 @@ export default function Checkout({ onSubmit, children }) {
           city: "",
         }}
         validationSchema={OrderSchema}
-        onSubmit={(values) => onSubmit(values)}
+        onSubmit={(values) => console.table(values)}
       >
         {({ errors, touched }) => (
           <Form>
@@ -72,10 +79,15 @@ export default function Checkout({ onSubmit, children }) {
                 isTouched={touched.city}
               />
             </div>
-            {children}
+            <div className="modal-actions">
+              <Button textOnly onClick={hideCheckout}>
+                Close
+              </Button>
+              <Button>Submit Order</Button>
+            </div>
           </Form>
         )}
       </Formik>
-    </>
+    </Modal>
   );
 }

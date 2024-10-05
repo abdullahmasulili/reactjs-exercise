@@ -1,34 +1,25 @@
-import { useCallback, useRef } from "react";
 import Header from "./components/Header";
-import Modal from "./components/Modal";
 import Products from "./components/Products";
 import ProductContextProvider from "./context/products-context";
 import Cart from "./components/Cart";
 import CartContextProvider from "./context/products-cart-context";
+import UserProgressContextProvider from "./context/user-progress-context";
+import Checkout from "./components/Checkout";
 
 function App() {
-  const modalRef = useRef();
-
-  const handleOpenModal = useCallback(function handleOpenModal() {
-    modalRef.current.open();
-  }, []);
-
-  const handleCloseModal = useCallback(function handleCloseModal() {
-    modalRef.current.close();
-  }, []);
-
   return (
     <>
       <ProductContextProvider>
-        <CartContextProvider>
-          <Modal ref={modalRef}>
-            <Cart onClose={handleCloseModal} />
-          </Modal>
-          <Header onCartClick={handleOpenModal} />
-          <main>
-            <Products />
-          </main>
-        </CartContextProvider>
+        <UserProgressContextProvider>
+          <CartContextProvider>
+            <Cart />
+            <Checkout />
+            <Header />
+            <main>
+              <Products />
+            </main>
+          </CartContextProvider>
+        </UserProgressContextProvider>
       </ProductContextProvider>
     </>
   );

@@ -1,10 +1,14 @@
 import { useContext } from "react";
-import Logo from "../assets/logo.jpg";
+
 import { CartContext } from "../context/products-cart-context";
+import { UserProgressContext } from "../context/user-progress-context";
+
+import Logo from "../assets/logo.jpg";
 import Button from "./UI/Button";
 
-export default function Header({ onCartClick }) {
+export default function Header() {
   const { products } = useContext(CartContext);
+  const { showCart } = useContext(UserProgressContext);
   const totalCartIitems = products.reduce(
     (acc, product) => acc + product.quantity,
     0
@@ -17,7 +21,7 @@ export default function Header({ onCartClick }) {
         <h1>REACTFOOD</h1>
       </div>
       <nav>
-        <Button textOnly onClick={onCartClick}>
+        <Button textOnly onClick={showCart}>
           Cart ({totalCartIitems})
         </Button>
       </nav>

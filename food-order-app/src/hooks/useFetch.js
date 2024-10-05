@@ -6,11 +6,12 @@ export default function useFetch(fetchFn, initialValue, fetchMethod) {
   const [error, setError] = useState();
 
   const fetchData = useCallback(
-    async function fetchData() {
+    async function fetchData(payload) {
       setIsLoading(true);
+      setError(undefined);
 
       try {
-        const data = await fetchFn();
+        const data = await fetchFn(payload);
         setFetchedData(data);
       } catch (error) {
         setError({ message: error.message || "Failed to fetch data..." });

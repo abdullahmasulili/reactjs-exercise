@@ -1,5 +1,5 @@
 import { BASE_API_URL } from "../util/CONSTANTS";
-import { currency } from "../util/currency";
+import { currency } from "../util/formatter";
 import Button from "./Button";
 
 export default function ProductItem({ meal, onAddToCart }) {

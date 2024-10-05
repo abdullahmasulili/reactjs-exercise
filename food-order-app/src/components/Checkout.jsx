@@ -1,17 +1,17 @@
-import { currency } from "../util/currency";
+import { currency } from "../util/formatter";
 import Input from "./Input";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
 export default function Checkout({ onSubmit, children }) {
   const OrderSchema = Yup.object().shape({
-    fullName: Yup.string()
+    name: Yup.string()
       .min(5, "Too Short!")
       .max(50, "Too Long")
       .required("Required"),
     email: Yup.string().email("Invalid Email").required("Required"),
     street: Yup.string().min(5, "Too Short").required("Required"),
-    postalCode: Yup.number("Invalid Input")
+    ["postal-code"]: Yup.number("Invalid Input")
       .min(3, "Too Short")
       .required("Required"),
     city: Yup.string().min(3, "Too Short").required("Required"),
@@ -22,10 +22,10 @@ export default function Checkout({ onSubmit, children }) {
       <p>Total Amount : {currency.format(84)}</p>
       <Formik
         initialValues={{
-          fullName: "",
+          name: "",
           email: "",
           street: "",
-          postalCode: "",
+          ["postal-code"]: "",
           city: "",
         }}
         validationSchema={OrderSchema}
@@ -36,9 +36,9 @@ export default function Checkout({ onSubmit, children }) {
             <Input
               type="text"
               label="Full Name"
-              name="fullName"
-              error={errors.fullName}
-              isTouched={touched.fullName}
+              name="name"
+              error={errors.name}
+              isTouched={touched.name}
             />
             <Input
               type="email"
@@ -59,10 +59,10 @@ export default function Checkout({ onSubmit, children }) {
               <Input
                 type="number"
                 label="Postal Code"
-                name="postalCode"
+                name="postal-code"
                 inputMode="numeric"
-                error={errors.postalCode}
-                isTouched={touched.postalCode}
+                error={errors["postal-code"]}
+                isTouched={touched["postal-code"]}
               />
               <Input
                 type="text"

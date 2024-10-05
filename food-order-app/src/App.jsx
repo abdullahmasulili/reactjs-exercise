@@ -26,10 +26,7 @@ function App() {
           </Modal>
           <Header onCartClick={handleOpenModal} />
           <main>
-            <Products
-              loadingText="Retrieving Meals, Please wait..."
-              fallbackText="No Meals Can Be Displayed"
-            />
+            <Products />
           </main>
         </CartContextProvider>
       </ProductContextProvider>

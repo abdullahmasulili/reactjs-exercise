@@ -4,14 +4,14 @@ import { CartContext } from "../context/products-cart-context";
 
 import ProductItem from "./ProductItem";
 
-const Products = memo(function Products({ loadingText, fallbackText }) {
+const Products = memo(function Products() {
   const { products: meals, isLoading, error } = useContext(ProductContext);
   const { addItemToCart } = useContext(CartContext);
 
   return (
     <ul id="meals">
-      {isLoading && <p>{loadingText}</p>}
-      {error && <p>{fallbackText}</p>}
+      {isLoading && <p>Retrieving Meals, Please wait...</p>}
+      {error && <p>No Meals Can Be Displayed</p>}
       {meals.length > 0 &&
         !isLoading &&
         meals.map((meal) => (

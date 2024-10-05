@@ -24,7 +24,7 @@ export default function Cart() {
         {products.length < 1 && (
           <p>Nothing to show here. Add your desired meal first</p>
         )}
-        {products.length < 1 &&
+        {products.length > 0 &&
           products.map((product) => (
             <CartItems
               key={product.id}

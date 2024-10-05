@@ -1,10 +1,8 @@
 import { memo, useContext } from "react";
-import { BASE_API_URL } from "../util/CONSTANTS";
 import { ProductContext } from "../context/products-context";
 import { CartContext } from "../context/products-cart-context";
 
-import { currency } from "../util/currency";
-import Button from "./Button";
+import ProductsItem from "./ProductsItem";
 
 const Products = memo(function Products({ loadingText, fallbackText }) {
   const { products: meals, isLoading, error } = useContext(ProductContext);
@@ -14,27 +12,9 @@ const Products = memo(function Products({ loadingText, fallbackText }) {
     <ul id="meals">
       {isLoading && <p>{loadingText}</p>}
       {error && <p>{fallbackText}</p>}
-      {meals.length > 0 &&
-        !isLoading &&
-        meals.map((meal) => (
-          <li className="meal-item" key={meal.id}>
-            <article>
-              <img src={BASE_API_URL + `/${meal.image}`} alt={meal.name} />
-              <div className="meal-item-description">
-                <h3>{meal.name}</h3>
-                <p className="meal-item-price">{currency.format(meal.price)}</p>
-                <p>{meal.description}</p>
-              </div>
-              <div className="meal-item-actions">
-                <Button
-                  caption="Add To Cart"
-                  className="button"
-                  onClick={() => addItemToCart(meal, 1)}
-                />
-              </div>
-            </article>
-          </li>
-        ))}
+      {meals.length > 0 && !isLoading && (
+        <ProductsItem items={meals} onAddToCart={addItemToCart} />
+      )}
     </ul>
   );
 });

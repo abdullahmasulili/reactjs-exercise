@@ -28,7 +28,9 @@ export default function Cart() {
           products.map((product) => (
             <CartItems
               key={product.id}
-              product={product}
+              name={product.name}
+              price={product.price}
+              quantity={product.quantity}
               onPlus={() => updateItemQuantity(product.id, 1)}
               onMinus={() => updateItemQuantity(product.id, -1)}
             />

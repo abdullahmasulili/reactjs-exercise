@@ -3,7 +3,7 @@ import { currency } from "../util/formatter.js";
 import { CartContext } from "../context/products-cart-context.jsx";
 import Button from "./UI/Button.jsx";
 
-export default function CartItems({ children }) {
+export default function CartItems() {
   const { products, updateItemQuantity, cartTotal } = useContext(CartContext);
 
   return (
@@ -32,7 +32,6 @@ export default function CartItems({ children }) {
           ))}
       </ul>
       <p className="cart-total">{currency.format(cartTotal)}</p>
-      {children}
     </>
   );
 }

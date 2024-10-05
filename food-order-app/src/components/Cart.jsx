@@ -41,7 +41,8 @@ export default function Cart({ onClose }) {
     <div className="cart">
       <h2>{modalTitle}</h2>
       {!isCheckingOut && (
-        <CartItems>
+        <>
+          <CartItems />
           <div className="modal-actions">
             <Button textOnly onClick={handleClose}>
               Close
@@ -53,7 +54,7 @@ export default function Cart({ onClose }) {
               Checkout
             </Button>
           </div>
-        </CartItems>
+        </>
       )}
       {isCheckingOut && (
         <Checkout onSubmit={handleSubmitOrder}>

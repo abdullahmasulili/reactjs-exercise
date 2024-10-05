@@ -3,15 +3,26 @@ import { ProductContext } from "../context/products-context";
 import { CartContext } from "../context/products-cart-context";
 
 import ProductItem from "./ProductItem";
+import Error from "./Error";
 
 const Products = memo(function Products() {
   const { products: meals, isLoading, error } = useContext(ProductContext);
   const { addItemToCart } = useContext(CartContext);
 
+  if (isLoading) {
+    return (
+      <p style={{ textAlign: "center" }}>Retrieving Meals, Please wait...</p>
+    );
+  }
+
+  if (error) {
+    return (
+      <Error title="Failed to retrieve meals..." message={error.message} />
+    );
+  }
+
   return (
     <ul id="meals">
-      {isLoading && <p>Retrieving Meals, Please wait...</p>}
-      {error && <p>No Meals Can Be Displayed</p>}
       {meals.length > 0 &&
         !isLoading &&
         meals.map((meal) => (

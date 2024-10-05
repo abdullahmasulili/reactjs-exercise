@@ -8,13 +8,15 @@ export default function Header({ onCartClick }) {
 
   return (
     <header id="main-header">
-      <h1 id="title">
+      <div id="title">
         <img src={Logo} alt="application logo" />
-        REACTFOOD
-      </h1>
-      <Button textOnly onClick={onCartClick}>
-        Cart ({products.length})
-      </Button>
+        <h1>REACTFOOD</h1>
+      </div>
+      <nav>
+        <Button textOnly onClick={onCartClick}>
+          Cart ({products.length})
+        </Button>
+      </nav>
     </header>
   );
 }

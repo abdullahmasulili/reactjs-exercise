@@ -7,7 +7,11 @@ export const ProductContext = createContext({
 });
 
 export default function ProductContextProvider({ children }) {
-  const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals, []);
+  const {
+    fetchedData: meals,
+    isLoading,
+    error,
+  } = useFetch(fetchMeals, [], "GET");
 
   const contextValue = {
     products: meals,

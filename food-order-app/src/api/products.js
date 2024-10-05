@@ -22,7 +22,7 @@ export async function addOrder(order) {
   });
 
   if (!response.ok) {
-    throw new Error(response.error.message || "Failed to submit order");
+    throw new Error("Failed to submit order");
   }
 
   const resData = await response.json();

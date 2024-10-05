@@ -13,11 +13,7 @@ export default function ProductItem({ meal, onAddToCart }) {
           <p className="meal-item-description">{meal.description}</p>
         </div>
         <div className="meal-item-actions">
-          <Button
-            caption="Add To Cart"
-            className="button"
-            onClick={() => onAddToCart(meal, 1)}
-          />
+          <Button onClick={() => onAddToCart(meal, 1)}>Add To Cart</Button>
         </div>
       </article>
     </li>

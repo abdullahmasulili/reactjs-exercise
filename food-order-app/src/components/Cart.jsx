@@ -5,7 +5,7 @@ import { UserProgressContext } from "../context/user-progress-context";
 
 import { currency } from "../util/formatter.js";
 
-import CartItems from "./CartItems";
+import CartItems from "./CartItem.jsx";
 import Button from "./UI/Button";
 import Modal from "./Modal";
 

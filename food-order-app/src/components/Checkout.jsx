@@ -1,5 +1,5 @@
 import { currency } from "../util/formatter";
-import Input from "./Input";
+import Input from "./UI/Input";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 

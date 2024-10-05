@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { currency } from "../util/formatter.js";
 import { CartContext } from "../context/products-cart-context.jsx";
-import Button from "./Button.jsx";
+import Button from "./UI/Button.jsx";
 
 export default function CartItems({ children }) {
   const { products, updateItemQuantity, cartTotal } = useContext(CartContext);

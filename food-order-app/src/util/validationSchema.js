@@ -7,8 +7,6 @@ export const OrderSchema = Yup.object().shape({
     .required("Required"),
   email: Yup.string().email("Invalid Email").required("Required"),
   street: Yup.string().min(5, "Too Short").required("Required"),
-  ["postal-code"]: Yup.number("Invalid Input")
-    .min(3, "Too Short")
-    .required("Required"),
+  ["postal-code"]: Yup.string().min(3, "Too Short").required("Required"),
   city: Yup.string().min(3, "Too Short").required("Required"),
 });

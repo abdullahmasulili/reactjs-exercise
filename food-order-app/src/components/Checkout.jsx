@@ -10,10 +10,24 @@ import Modal from "./Modal";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
 import { CartContext } from "../context/products-cart-context";
+import { addOrder } from "../api/products";
 
 export default function Checkout() {
   const { hideModal: hideCheckout, progress } = useContext(UserProgressContext);
-  const { cartTotal } = useContext(CartContext);
+  const { cartTotal, products } = useContext(CartContext);
+
+  async function handleSubmit(values) {
+    const order = {
+      customer: values,
+      items: products,
+    };
+
+    try {
+      await addOrder(order);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   return (
     <Modal open={progress === "checkout"} onClose={hideCheckout}>
@@ -26,7 +40,7 @@ export default function Checkout() {
           city: "",
         }}
         validationSchema={OrderSchema}
-        onSubmit={(values) => console.table(values)}
+        onSubmit={handleSubmit}
       >
         {({ errors, touched }) => (
           <Form>
@@ -56,7 +70,7 @@ export default function Checkout() {
             />
             <div className="control-row">
               <Input
-                type="number"
+                type="text"
                 label="Postal Code"
                 name="postal-code"
                 inputMode="numeric"
@@ -75,7 +89,7 @@ export default function Checkout() {
               <Button textOnly type="button" onClick={hideCheckout}>
                 Close
               </Button>
-              <Button>Submit Order</Button>
+              <Button type="submit">Submit Order</Button>
             </div>
           </Form>
         )}

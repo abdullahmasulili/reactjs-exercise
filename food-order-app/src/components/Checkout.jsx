@@ -1,32 +1,22 @@
 import { useContext } from "react";
+import { Form, Formik } from "formik";
+
+import { UserProgressContext } from "../context/user-progress-context";
+
 import { currency } from "../util/formatter";
+import { OrderSchema } from "../util/validationSchema";
+
 import Modal from "./Modal";
 import Input from "./UI/Input";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
-import { UserProgressContext } from "../context/user-progress-context";
 import Button from "./UI/Button";
+import { CartContext } from "../context/products-cart-context";
 
 export default function Checkout() {
   const { hideModal: hideCheckout, progress } = useContext(UserProgressContext);
-
-  const OrderSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(5, "Too Short!")
-      .max(50, "Too Long")
-      .required("Required"),
-    email: Yup.string().email("Invalid Email").required("Required"),
-    street: Yup.string().min(5, "Too Short").required("Required"),
-    ["postal-code"]: Yup.number("Invalid Input")
-      .min(3, "Too Short")
-      .required("Required"),
-    city: Yup.string().min(3, "Too Short").required("Required"),
-  });
+  const { cartTotal } = useContext(CartContext);
 
   return (
-    <Modal className="cart" open={progress === "checkout"}>
-      <h2>Checkout</h2>
-      <p>Total Amount : {currency.format(84)}</p>
+    <Modal open={progress === "checkout"}>
       <Formik
         initialValues={{
           name: "",
@@ -40,6 +30,8 @@ export default function Checkout() {
       >
         {({ errors, touched }) => (
           <Form>
+            <h2>Checkout</h2>
+            <p>Total Amount : {currency.format(cartTotal)}</p>
             <Input
               type="text"
               label="Full Name"
@@ -80,7 +72,7 @@ export default function Checkout() {
               />
             </div>
             <div className="modal-actions">
-              <Button textOnly onClick={hideCheckout}>
+              <Button textOnly type="button" onClick={hideCheckout}>
                 Close
               </Button>
               <Button>Submit Order</Button>

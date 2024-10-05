@@ -41,9 +41,11 @@ export default function Cart() {
         <Button textOnly onClick={hideCart}>
           Close
         </Button>
-        <Button onClick={showCheckout} disabled={products.length < 1}>
-          Checkout
-        </Button>
+        {products.length > 0 && (
+          <Button onClick={showCheckout} disabled={products.length < 1}>
+            Checkout
+          </Button>
+        )}
       </div>
     </Modal>
   );

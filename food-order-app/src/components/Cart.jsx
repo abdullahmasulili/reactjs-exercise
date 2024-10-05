@@ -18,7 +18,11 @@ export default function Cart() {
   } = useContext(UserProgressContext);
 
   return (
-    <Modal className="cart" open={progress === "cart"} onClose={hideCart}>
+    <Modal
+      className="cart"
+      open={progress === "cart"}
+      onClose={progress === "cart" ? hideCart : null}
+    >
       <h2>Your Cart</h2>
       <ul>
         {products.length < 1 && (

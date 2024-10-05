@@ -20,15 +20,13 @@ export default function CartItems({ children }) {
                 ${currency.format(product.price)}`}
               </p>
               <div className="cart-item-actions">
-                <Button
-                  caption="-"
-                  onClick={() => updateItemQuantity(product, -1)}
-                />
+                <Button onClick={() => updateItemQuantity(product.id, -1)}>
+                  -
+                </Button>
                 <p>{product.quantity}</p>
-                <Button
-                  caption="+"
-                  onClick={() => updateItemQuantity(product, 1)}
-                />
+                <Button onClick={() => updateItemQuantity(product.id, 1)}>
+                  +
+                </Button>
               </div>
             </li>
           ))}

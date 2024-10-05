@@ -2,15 +2,15 @@ import { BASE_API_URL } from "../util/CONSTANTS";
 import { currency } from "../util/currency";
 import Button from "./Button";
 
-export default function ProductsItem({ items: meals, onAddToCart }) {
-  return meals.map((meal) => (
-    <li className="meal-item" key={meal.id}>
+export default function ProductItem({ meal, onAddToCart }) {
+  return (
+    <li className="meal-item">
       <article>
         <img src={BASE_API_URL + `/${meal.image}`} alt={meal.name} />
-        <div className="meal-item-description">
+        <div>
           <h3>{meal.name}</h3>
           <p className="meal-item-price">{currency.format(meal.price)}</p>
-          <p>{meal.description}</p>
+          <p className="meal-item-description">{meal.description}</p>
         </div>
         <div className="meal-item-actions">
           <Button
@@ -21,5 +21,5 @@ export default function ProductsItem({ items: meals, onAddToCart }) {
         </div>
       </article>
     </li>
-  ));
+  );
 }

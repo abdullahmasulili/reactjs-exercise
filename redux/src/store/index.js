@@ -4,7 +4,7 @@ const counterReducer = (state = { counter: 0 }, action) => {
   switch (action.type) {
     case "INCREMENT":
       return {
-        counter: (state.counter += 1),
+        counter: (state.counter += action.payload.amount),
       };
     case "DECREMENT":
       return {

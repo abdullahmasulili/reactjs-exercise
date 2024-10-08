@@ -1,14 +1,23 @@
-import CartButton from '../Cart/CartButton';
-import classes from './MainHeader.module.css';
+import { useDispatch } from "react-redux";
+import CartButton from "../Cart/CartButton";
+import classes from "./MainHeader.module.css";
+import { cartActions } from "../../store/cartSlice";
 
 const MainHeader = (props) => {
+  const dispatch = useDispatch();
+  const { toggleCart } = cartActions;
+
+  function handleToggleCart() {
+    dispatch(toggleCart());
+  }
+
   return (
     <header className={classes.header}>
       <h1>ReduxCart</h1>
       <nav>
         <ul>
           <li>
-            <CartButton />
+            <CartButton onClick={handleToggleCart} />
           </li>
         </ul>
       </nav>

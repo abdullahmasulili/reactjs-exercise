@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
+  totalQuantity: 0,
 };
 
 const cartSlice = createSlice({
@@ -28,6 +29,11 @@ const cartSlice = createSlice({
 
         state.items.unshift(product);
       }
+
+      state.totalQuantity = state.items.reduce(
+        (totalQuantity, item) => totalQuantity + item.quantity,
+        0
+      );
     },
     removeItem(state, action) {
       const itemIndex = state.items.findIndex(

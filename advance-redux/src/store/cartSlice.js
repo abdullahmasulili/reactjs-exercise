@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isShowCart: false,
-  items: [{ title: "Test Item", quantity: 3, total: 18, price: 6 }],
+  isShowCart: true,
+  items: [{ id: "p1", title: "Test Item", quantity: 3, total: 18, price: 6 }],
 };
 
 const cartSlice = createSlice({
@@ -32,7 +32,7 @@ const cartSlice = createSlice({
         if (state.items[itemIndex].quantity === 1) {
           state.items.splice(itemIndex, 1);
         } else {
-          state.item[itemIndex].quantity -= 1;
+          state.items[itemIndex].quantity -= 1;
         }
       }
     },

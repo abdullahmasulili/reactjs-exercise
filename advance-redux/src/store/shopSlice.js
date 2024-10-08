@@ -3,9 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   products: [
     {
+      id: Math.random(),
       title: "Test Product",
       price: 6.0,
-      desciption: "This is a first product - amazing!",
+      description: "This is a first product - amazing!",
     },
   ],
 };

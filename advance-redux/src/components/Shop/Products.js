@@ -11,12 +11,7 @@ const Products = (props) => {
       <ul>
         {products.length > 0 &&
           products.map((product) => (
-            <ProductItem
-              key={product.id}
-              title={product.title}
-              price={product.price}
-              description={product.description}
-            />
+            <ProductItem key={product.id} product={product} />
           ))}
       </ul>
     </section>

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { authActions } from "../store";
+import { authActions } from "../store/slices/auth";
 import classes from "./Auth.module.css";
 
 const Auth = () => {
@@ -14,7 +14,7 @@ const Auth = () => {
   return (
     <main className={classes.auth}>
       <section>
-        <form>
+        <form onSubmit={handleLogin}>
           <div className={classes.control}>
             <label htmlFor="email">Email</label>
             <input type="email" id="email" />
@@ -23,7 +23,7 @@ const Auth = () => {
             <label htmlFor="password">Password</label>
             <input type="password" id="password" />
           </div>
-          <button onClick={handleLogin}>Login</button>
+          <button>Login</button>
         </form>
       </section>
     </main>

@@ -4,12 +4,18 @@ import classes from "./ProductItem.module.css";
 import { cartActions } from "../../store/cart-slice";
 
 const ProductItem = (props) => {
-  const { title, price, description } = props.product;
+  const { id, title, price, description } = props.product;
   const dispatch = useDispatch();
   const { addItem } = cartActions;
 
   function handleAddToCart() {
-    dispatch(addItem(props.product));
+    dispatch(
+      addItem({
+        id,
+        title,
+        price,
+      })
+    );
   }
 
   return (

@@ -51,6 +51,11 @@ const cartSlice = createSlice({
           state.items[itemIndex].total = total;
         }
       }
+
+      state.totalQuantity = state.items.reduce(
+        (totalQuantity, item) => totalQuantity + item.quantity,
+        0
+      );
     },
   },
 });

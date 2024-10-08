@@ -20,7 +20,12 @@ export const fetchCartData = () => {
     try {
       const cartData = await sendRequest();
 
-      dispatch(cartActions.setCartData(cartData));
+      dispatch(
+        cartActions.setCartData({
+          items: cartData.items || [],
+          totalQuantity: cartData.totalQuantity,
+        })
+      );
     } catch (error) {
       dispatch(
         uiActions.showNotification({

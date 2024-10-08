@@ -21,7 +21,9 @@ const shopSlice = createSlice({
   name: "shop",
   initialState,
   reducers: {
-    addProductItem(state) {},
+    setProductsItem(state, action) {
+      state.products = action.payload;
+    },
   },
 });
 

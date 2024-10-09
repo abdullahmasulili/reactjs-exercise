@@ -6,9 +6,9 @@ export default function EventsLayout() {
   return (
     <>
       <EventsNavigation />
-      <main>
+      <section>
         <Outlet />
-      </main>
+      </section>
     </>
   );
 }

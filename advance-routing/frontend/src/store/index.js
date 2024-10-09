@@ -2,6 +2,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
+  editItem: {},
 };
 
 const eventsSlice = createSlice({
@@ -10,6 +11,9 @@ const eventsSlice = createSlice({
   reducers: {
     setEventsData(state, action) {
       state.items = action.payload;
+    },
+    setEditEvent(state, action) {
+      state.editItem = state.items.find((item) => item.id === action.payload);
     },
     addEvent(state, action) {
       state.items.unshift(action.payload);

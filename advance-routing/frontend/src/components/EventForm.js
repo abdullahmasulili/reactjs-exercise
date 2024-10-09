@@ -20,7 +20,7 @@ function EventForm({ method, event }) {
           id="title"
           type="text"
           name="title"
-          value={event?.title || ""}
+          defaultValue={event?.title || ""}
           required
         />
       </p>
@@ -30,7 +30,7 @@ function EventForm({ method, event }) {
           id="image"
           type="url"
           name="image"
-          value={event?.image || ""}
+          defaultValue={event?.image || ""}
           required
         />
       </p>
@@ -40,7 +40,7 @@ function EventForm({ method, event }) {
           id="date"
           type="date"
           name="date"
-          value={event?.date || ""}
+          defaultValue={event?.date || ""}
           required
         />
       </p>
@@ -50,7 +50,7 @@ function EventForm({ method, event }) {
           id="description"
           name="description"
           rows="5"
-          value={event?.description || ""}
+          defaultValue={event?.description || ""}
           required
         />
       </p>

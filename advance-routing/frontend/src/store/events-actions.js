@@ -16,9 +16,9 @@ export const fetchEventsData = () => {
     }
 
     try {
-      const eventsData = await sendRequest();
+      const { events } = await sendRequest();
 
-      dispatch(eventsActions.setEventsData(eventsData));
+      dispatch(eventsActions.setEventsData(events));
     } catch (error) {
       console.log(error);
     }

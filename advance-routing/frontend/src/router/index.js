@@ -6,6 +6,7 @@ import EventsPage from "../pages/Events";
 import NewEventPage from "../pages/NewEvent";
 import EditEventPage from "../pages/EditEvent";
 import EventDetailPage from "../pages/EventDetail";
+import { eventsLoader } from "./loader";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <EventsPage />,
+            loader: eventsLoader,
           },
           {
             path: ":eventId",

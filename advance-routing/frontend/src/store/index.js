@@ -3,6 +3,8 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   items: [],
   editItem: {},
+  isLoading: false,
+  error: null,
 };
 
 const eventsSlice = createSlice({
@@ -14,6 +16,12 @@ const eventsSlice = createSlice({
     },
     setEditEvent(state, action) {
       state.editItem = state.items.find((item) => item.id === action.payload);
+    },
+    setIsLoading(state, action) {
+      state.isLoading = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload;
     },
     addEvent(state, action) {
       state.items.unshift(action.payload);

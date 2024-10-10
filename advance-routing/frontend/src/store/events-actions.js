@@ -3,6 +3,8 @@ import { BASE_API_URL } from "../utils/CONTANTS";
 
 export const fetchEventsData = () => {
   return async (dispatch) => {
+    dispatch(eventsActions.setIsLoading(true));
+
     async function sendRequest() {
       const response = await fetch(BASE_API_URL + "/events");
 
@@ -19,8 +21,10 @@ export const fetchEventsData = () => {
       const { events } = await sendRequest();
 
       dispatch(eventsActions.setEventsData(events));
+      dispatch(eventsActions.setIsLoading(false));
     } catch (error) {
-      console.log(error);
+      dispatch(eventsActions.setError(error.message));
+      dispatch(eventsActions.setIsLoading(false));
     }
   };
 };

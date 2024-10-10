@@ -2,11 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
 import HomePage from "../pages/Home";
 import EventsLayout from "../layouts/EventsLayout";
-import EventsPage from "../pages/Events";
+import EventsPage, { loader as eventsLoader } from "../pages/Events";
 import NewEventPage from "../pages/NewEvent";
 import EditEventPage from "../pages/EditEvent";
 import EventDetailPage from "../pages/EventDetail";
-import { eventsLoader } from "./loader";
 
 const router = createBrowserRouter([
   {

@@ -9,14 +9,12 @@ function EventItem({ event }) {
 
   return (
     <article className={classes.event}>
-      <Link to={event.id}>
-        <img src={event.image} alt={event.title} />
-        <h1>{event.title}</h1>
-      </Link>
+      <img src={event.image} alt={event.title} />
+      <h1>{event.title}</h1>
       <time>{event.date}</time>
       <p>{event.description}</p>
       <menu className={classes.actions}>
-        <Link to={`${event.id}/edit`}>Edit</Link>
+        <Link to={`/events/${event.id}/edit`}>Edit</Link>
         <button onClick={startDeleteHandler}>Delete</button>
       </menu>
     </article>

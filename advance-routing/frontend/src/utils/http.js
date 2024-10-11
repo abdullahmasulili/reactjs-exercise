@@ -4,10 +4,10 @@ export async function sendRequest(path) {
   const response = await fetch(BASE_API_URL + path);
 
   if (!response.ok) {
-    throw new Error("Failed to fetch events data");
+    throw new Response(JSON.stringify({ message: "Could not fetch events" }), {
+      status: 500,
+    });
   }
 
-  const data = await response.json();
-
-  return data;
+  return response;
 }

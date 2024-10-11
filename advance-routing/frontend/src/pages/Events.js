@@ -4,13 +4,17 @@ import EventsList from "../components/EventsList.js";
 import { sendRequest } from "../utils/http.js";
 
 export default function EventsPage() {
-  const events = useLoaderData();
+  const { events, isError, message } = useLoaderData();
+
+  if (isError) {
+    return <p>{message}</p>;
+  }
 
   return <EventsList events={events} />;
 }
 
 export async function loader() {
-  const { events } = await sendRequest("/events");
+  const response = await sendRequest("/events");
 
-  return events;
+  return response;
 }

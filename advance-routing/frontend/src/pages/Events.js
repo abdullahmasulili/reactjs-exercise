@@ -10,9 +10,11 @@ export default function EventsPage() {
 }
 
 export async function loader() {
-  const response = await sendRequest("/events", {
-    method: "GET",
-  });
+  const response = await sendRequest(
+    "/events",
+    { method: "GET" },
+    "Could not fetch events"
+  );
 
   return response;
 }

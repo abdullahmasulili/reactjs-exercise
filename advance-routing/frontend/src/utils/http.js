@@ -1,8 +1,8 @@
 import { json } from "react-router-dom";
 import { BASE_API_URL } from "./CONTANTS";
 
-export async function sendRequest(path) {
-  const response = await fetch(BASE_API_URL.concat(path));
+export async function sendRequest(path, configs) {
+  const response = await fetch(BASE_API_URL.concat(path), configs);
 
   if (!response.ok) {
     throw json(

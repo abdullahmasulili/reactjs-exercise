@@ -10,7 +10,9 @@ export default function EventsPage() {
 }
 
 export async function loader() {
-  const response = await sendRequest("/events");
+  const response = await sendRequest("/events", {
+    method: "GET",
+  });
 
   return response;
 }

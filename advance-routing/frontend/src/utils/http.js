@@ -4,6 +4,10 @@ import { BASE_API_URL } from "./CONTANTS";
 export async function sendRequest(path, configs, fallbackMsg) {
   const response = await fetch(BASE_API_URL.concat(path), configs);
 
+  if (response.status === 422) {
+    throw response;
+  }
+
   if (!response.ok) {
     throw json(
       { message: fallbackMsg || "Something went wrong!" },

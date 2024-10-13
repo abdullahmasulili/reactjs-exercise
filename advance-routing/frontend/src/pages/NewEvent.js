@@ -30,6 +30,6 @@ export async function action({ request }) {
 
     return redirect("/events");
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }

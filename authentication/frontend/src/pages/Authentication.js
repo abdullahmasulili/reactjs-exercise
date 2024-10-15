@@ -29,13 +29,17 @@ export async function action({ request }) {
   if (response.status === 422 || response.status === 401) {
     return response;
   }
-  console.log(response);
+
   if (!response.ok) {
     throw json(
       { message: "Could not perform authentication" },
       { status: 500 }
     );
   }
+
+  const { token } = await response.json();
+
+  localStorage.setItem("token", token);
 
   return redirect("/");
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
@@ -14,7 +14,7 @@ export default function Posts() {
   return (
     <ul>
       {posts.map((post) => (
-        <li>{post}</li>
+        <li key={post}>{post}</li>
       ))}
     </ul>
   );
